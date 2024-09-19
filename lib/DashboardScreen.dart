@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
 
+import 'Helper/Colors.dart';
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -20,7 +22,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            BlackTag(null,null,null,null)
+            BlackTag(
+              Dark1,
+              null,
+              null,
+              "Devan Bhensdadiya",
+              "Sem: 7  ""  Class: TK1 - A",
+                Image.asset(
+                  "assets/images/prof.png",
+                  fit: BoxFit.cover,
+                ),
+              true
+            ),
+            SizedBox(height: 20,),
+            BlackTag(
+                Dark1,
+                null,
+                null,
+                "Upcoming Event",
+                "Engineer's Day Celebration",
+                Image.asset(
+                  "assets/images/prof.png",
+                  fit: BoxFit.cover,
+                ),
+                false
+            ),
           ],
         ),
       ),

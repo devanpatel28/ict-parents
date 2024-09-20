@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:ict_mu_parents/Helper/Colors.dart';
 
 import 'Style.dart';
@@ -137,6 +138,58 @@ Widget BlackTag(
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget TapIcons(
+    String name,
+    double nameSize,
+    String iconFilename,
+    double iconSize,
+    String route
+    ) {
+  return InkWell(
+    onTap: ()=>Get.toNamed(route),
+    child: Container(
+      height: 200,
+      width: 100,
+      child: Column(
+        children: [
+          Container(
+            height: 75,
+            width: 75,
+            decoration: BoxDecoration(
+              color: Colors.white, // background color for the icon
+              borderRadius: BorderRadius.circular(20), // rounded corners
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: iconSize,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/MainIcons/$iconFilename"), // replace with your asset path
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ), // Spacing between icon and text
+              ],
+            ),
+          ),
+          SizedBox(height: 5,),
+          Text(
+            name,
+            style: TextStyle(
+              fontSize: nameSize,
+              fontFamily: "mu_reg",
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }

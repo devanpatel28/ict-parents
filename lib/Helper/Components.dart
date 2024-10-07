@@ -23,13 +23,11 @@ double getSize(context, double i) {
 
 
 
-Widget BlackTag(
+Widget BlackTag(context,
     Color? color,
-    double? height,
-    double? width,
     String? Line1,
     String? Line2,
-    Image? img,
+    Widget? imageWidget,
     bool isReverse) {
   return Container(
     alignment: Alignment.centerRight,
@@ -38,8 +36,8 @@ Widget BlackTag(
       children: isReverse
           ? [
         Container(
-          height: height ?? 65,
-          width: width ?? 50,
+          height:65,
+          width:50,
           decoration: BoxDecoration(
             color: color ?? Colors.black,
             borderRadius: BorderRadius.horizontal(
@@ -48,8 +46,8 @@ Widget BlackTag(
           ),
         ),
         Container(
-          height: height ?? 65,
-          width: width ?? 300,
+          height:65,
+          width: 300,
           decoration: BoxDecoration(
             color: color ?? Colors.black,
             borderRadius: BorderRadius.horizontal(
@@ -61,9 +59,16 @@ Widget BlackTag(
             children: [
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(500), // Clipping the image into a circle
-                  child: img
+                child: Container(
+                  height:55,
+                  width:55,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.all(Radius.circular(500)
+                    )
+                  ),
+                  child: imageWidget,
                 ),
               ),
               Padding(
@@ -72,12 +77,18 @@ Widget BlackTag(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      Line1??"Loading...",
-                      style: tagStyle(Colors.white, 18, true),
+                    SizedBox(
+                      width:getWidth(context,0.5),
+                      child: Text(
+                        Line1??"Loading...",
+                        overflow: TextOverflow.clip,
+                        softWrap: false,
+                        style: tagStyle(Colors.white, 18, true),
+                      ),
                     ),
                     Text(
                       Line2??"Loading...",
+                      overflow: TextOverflow.ellipsis,
                       style: tagStyle(Light2, 15, false),
                     ),
                   ],
@@ -89,8 +100,8 @@ Widget BlackTag(
       ]
           : [
         Container(
-          height: height ?? 65,
-          width: width ?? 300,
+          height: 65,
+          width: 300,
           decoration: BoxDecoration(
             color: color ?? Colors.black,
             borderRadius: BorderRadius.horizontal(
@@ -106,12 +117,18 @@ Widget BlackTag(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      Line1??"Loading...",
-                      style: tagStyle(Colors.white, 18, true),
+                    SizedBox(
+                      child: Text(
+                        Line1??"Loading...",
+                        overflow: TextOverflow.clip,
+                        softWrap: false,
+                        style: tagStyle(Colors.white, 18, true),
+                      ),
                     ),
                     Text(
                       Line2??"Loading...",
+                      overflow: TextOverflow.clip,
+                      softWrap: false,
                       style: tagStyle(Light2, 15, false),
                     ),
                   ],
@@ -121,15 +138,15 @@ Widget BlackTag(
                 padding: const EdgeInsets.all(5.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(500), // Clipping the image into a circle
-                  child: img
+                  child: imageWidget
                 ),
               ),
             ],
           ),
         ),
         Container(
-          height: height ?? 65,
-          width: width ?? 50,
+          height: 65,
+          width: 50,
           decoration: BoxDecoration(
             color: color ?? Colors.black,
             borderRadius: BorderRadius.horizontal(
@@ -160,8 +177,8 @@ Widget TapIcons(
             height: 75,
             width: 75,
             decoration: BoxDecoration(
-              color: Colors.white, // background color for the icon
-              borderRadius: BorderRadius.circular(20), // rounded corners
+              color: muGrey,
+              borderRadius: BorderRadius.circular(15), // rounded corners
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -184,8 +201,8 @@ Widget TapIcons(
             style: TextStyle(
               fontSize: nameSize,
               fontFamily: "mu_reg",
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+              // fontWeight: FontWeight.bold,
+              color: muColor,
             ),
           ),
         ],

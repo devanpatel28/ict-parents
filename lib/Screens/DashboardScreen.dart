@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
-import 'Helper/Colors.dart';
-import 'Model/UserDataModel.dart';
+import '../Helper/Colors.dart';
+import '../Model/UserDataModel.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -79,15 +79,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   mainAxisSpacing: 15,
                   padding: EdgeInsets.all(20),
                   children: [
-                    TapIcons("Attendance", 15, "attendance.png", 45, "/attendance"),
-                    TapIcons("Placement", 15, "placement.png", 45, "/placement"),
-                    TapIcons("Leaves", 15, "leaves.png", 45, "/placement"),
-                    TapIcons("Result", 15, "result.png", 45, "/placement"),
-                    TapIcons("Exams", 15, "exam.png", 45, "/placement"),
-                    TapIcons("Holidays", 15, "holiday.png", 45, "/placement"),
-                    TapIcons("Timetable", 15, "timetable.png", 45, "/placement"),
-                    TapIcons("Faculties", 15, "faculty.png", 45, "/placement"),
-                    TapIcons("Noticeboard", 15, "noticeboard.png", 45, "/placement"),
+                    TapIcons("Attendance", 15, "attendance.png", 45,"/attendance",{'student_id': userData.studentDetails?.studentId}),
+                    TapIcons("Placement", 15, "placement.png", 45,"/placement",null),
+                    TapIcons("Leaves", 15, "leaves.png", 45, "/placement",null),
+                    TapIcons("Result", 15, "result.png", 45, "/placement",null),
+                    TapIcons("Exams", 15, "exam.png", 45, "/placement",null),
+                    TapIcons("Holidays", 15, "holiday.png", 45, "/placement",null),
+                    TapIcons("Timetable", 15, "timetable.png", 45, "/placement",null),
+                    TapIcons("Faculties", 15, "faculty.png", 45, "/placement",null),
+                    TapIcons("Noticeboard", 15, "noticeboard.png", 45, "/placement",null),
                   ],
                 ),
               ),

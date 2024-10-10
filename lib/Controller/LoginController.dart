@@ -15,7 +15,7 @@ class LoginController extends GetxController {
         'password': password,
       };
       final response = await http.post(
-        Uri.parse(validateLogin),
+        Uri.parse(validateLoginAPI),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(body),
       );

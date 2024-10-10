@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:ict_mu_parents/DashboardScreen.dart';
-import 'package:ict_mu_parents/ForgotPasswordScreen.dart';
-import 'package:ict_mu_parents/LoginScreen.dart';
-import 'package:ict_mu_parents/PlacementScreen.dart';
-import 'package:ict_mu_parents/SplashScreen.dart';
-import 'package:ict_mu_parents/StudentAttendanceScreen.dart';
+import 'package:ict_mu_parents/Screens/ForgotPasswordScreen.dart';
+import 'package:ict_mu_parents/Screens/SplashScreen.dart';
+import 'package:ict_mu_parents/Screens/StudentAttendanceScreen.dart';
+
+import 'Screens/DashboardScreen.dart';
+import 'Screens/LoginScreen.dart';
+import 'Screens/PlacementScreen.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

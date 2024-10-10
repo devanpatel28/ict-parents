@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ict_mu_parents/Helper/Colors.dart';
 
-import 'Controller/LoginController.dart';
+import '../Controller/LoginController.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -169,23 +169,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 30),
                   InkWell(
                     onTap: () async {
-                      // setState(() {
-                      //   isLoading = !isLoading;
-                      // });
-                      //
-                      // Future.delayed(Duration(seconds: 3), () {
-                      //   setState(() {
-                      //     isLoading = !isLoading;
-                      //   });
-                      //   Get.toNamed("/dashboard");
-                      // });
-
                       setState(() {
                         isLoading = true;
                       });
                       if(await loginControl.login(username.text,password.text))
                       {
-                          Get.toNamed("/dashboard");
+                          Get.offNamed("/dashboard");
                       }
                       else
                       {

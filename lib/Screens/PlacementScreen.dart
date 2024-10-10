@@ -12,7 +12,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Placement",style: AppbarStyle,),),
+      appBar: AppBar(title: Text("Placement",style: AppbarStyle(context),),),
     );
   }
 }

@@ -75,8 +75,7 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                             width: getWidth(context, 0.5),
                             child: Text(
                               Line1 ?? "Loading...",
-                              overflow: TextOverflow.clip,
-                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
                               style: tagStyle(Colors.white, 18, true),
                             ),
                           ),
@@ -114,15 +113,13 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                           SizedBox(
                             child: Text(
                               Line1 ?? "Loading...",
-                              overflow: TextOverflow.clip,
-                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
                               style: tagStyle(Colors.white, 18, true),
                             ),
                           ),
                           Text(
                             Line2 ?? "Loading...",
-                            overflow: TextOverflow.clip,
-                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
                             style: tagStyle(Light2, 15, false),
                           ),
                         ],
@@ -154,18 +151,17 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
 }
 
 Widget TapIcons(
-  String name,
-  double nameSize,
-  String iconFilename,
-  double iconSize,
-  String route,
-  routeArg,
-) {
+    context,
+    String name,
+    double nameSize,
+    String iconFilename,
+    double iconSize,
+    String route,
+    routeArg,
+    ) {
   return InkWell(
     onTap: () => Get.toNamed(route, arguments: routeArg),
     child: Container(
-      height: 200,
-      width: 100,
       child: Column(
         children: [
           Container(
@@ -175,34 +171,40 @@ Widget TapIcons(
               color: muGrey,
               borderRadius: BorderRadius.circular(15), // rounded corners
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: iconSize,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                          "assets/images/MainIcons/$iconFilename"), // replace with your asset path
-                      fit: BoxFit.contain,
-                    ),
+            child: Center(
+              child: Container(
+                height: iconSize,
+                width: iconSize,
+                decoration: BoxDecoration(
+
+                  image: DecorationImage(
+                    image: AssetImage(
+                        "assets/images/MainIcons/$iconFilename"), // replace with your asset path
+                    fit: BoxFit.contain,
                   ),
-                ), // Spacing between icon and text
-              ],
+                ),
+              ),
             ),
           ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            name,
-            style: TextStyle(
-              fontSize: nameSize,
-              fontFamily: "mu_reg",
-              // fontWeight: FontWeight.bold,
-              color: muColor,
-            ),
-          ),
+          Container(
+              height:getHeight(context, 0.05),
+              width: getWidth(context, 0.25),
+              child: Center(
+                child: Text(
+                  name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontFamily: 'mu_reg',
+                      color: muColor,
+                      height: 1,
+                      fontSize: getSize(context, nameSize)
+                  ),
+                  // softWrap: true,
+                  textAlign: TextAlign.center,
+                ),
+              )
+          )
         ],
       ),
     ),

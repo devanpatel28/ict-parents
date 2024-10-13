@@ -41,6 +41,7 @@ dependencies:
   cached_network_image: ^3.2.1
   syncfusion_flutter_gauges: ^27.1.52
   intl_utils: ^2.8.7
+  rename_app: ^1.6.1
 
 dev_dependencies:
   flutter_test:

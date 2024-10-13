@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 20),
                   InkWell(
-                    onTap: () => Get.toNamed("forgotPass"),
+                    onTap: () => Get.toNamed("/forgotPass"),
                       child: Text("Forgot password?",
                           style: TextStyle(fontFamily: "mu_bold"))
                   ),
@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                       if(await loginControl.login(username.text,password.text))
                       {
-                          Get.offNamed("/dashboard");
+                          Get.offAllNamed("/dashboard");
                       }
                       else
                       {

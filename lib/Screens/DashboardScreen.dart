@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
+import '../API/API.dart';
 import '../Helper/Colors.dart';
 import '../Model/UserDataModel.dart';
 
@@ -24,6 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     Map<String, dynamic> storedData = box.read('userdata');
     userData = UserData.fromJson(storedData);
+    print('user data == ${userData.studentDetails?.grNo}');
   }
 
   @override
@@ -31,7 +34,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed:() async {
-          await CachedNetworkImage.evictFromCache('https://student.marwadiuniversity.ac.in:553/handler/getImage.ashx?SID=${userData.studentDetails?.grNo}');
+          await CachedNetworkImage.evictFromCache(
+              studentImageAPI(userData.studentDetails!.grNo));
           box.write('loggedin', false);
           box.write('userdata', null);
           Get.offNamed('/login');
@@ -54,10 +58,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
               "${userData.studentDetails?.firstName} ${userData.studentDetails?.lastName}",
               "Sem: ${userData.classDetails?.semester}  Class: ${userData.classDetails?.className} - ${userData.classDetails?.batch?.toUpperCase()}",
               CachedNetworkImage(
-                imageUrl: 'https://student.marwadiuniversity.ac.in:553/handler/getImage.ashx?SID=${userData.studentDetails?.grNo}',
-                placeholder: (context, url) => CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 1,
+                imageUrl: studentImageAPI(userData.studentDetails!.grNo),
+                placeholder: (context, url) =>  Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Colors.black45,
+                ),
+                errorWidget: (context, url,error) =>  Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Colors.black87,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -74,20 +84,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: GridView.count(
+                  shrinkWrap: true,  // Ensures the GridView takes only as much space as it needs
                   crossAxisCount: 3,
+                  mainAxisSpacing: 0,
                   crossAxisSpacing: 10,
-                  mainAxisSpacing: 15,
-                  padding: EdgeInsets.all(20),
+                  childAspectRatio: 0.85,
+                  padding: EdgeInsets.all(10),
                   children: [
-                    TapIcons("Attendance", 15, "attendance.png", 45,"/attendance",{'student_id': userData.studentDetails?.studentId}),
-                    TapIcons("Placement", 15, "placement.png", 45,"/placement",null),
-                    TapIcons("Leaves", 15, "leaves.png", 45, "/placement",null),
-                    TapIcons("Result", 15, "result.png", 45, "/placement",null),
-                    TapIcons("Exams", 15, "exam.png", 45, "/placement",null),
-                    TapIcons("Holidays", 15, "holiday.png", 45, "/placement",null),
-                    TapIcons("Timetable", 15, "timetable.png", 45, "/placement",null),
-                    TapIcons("Faculties", 15, "faculty.png", 45, "/placement",null),
-                    TapIcons("Noticeboard", 15, "noticeboard.png", 45, "/placement",null),
+                    TapIcons(context,"Attendance", 2, "attendance.png", 45,"/attendance",{'student_id': userData.studentDetails?.studentId}),
+                    TapIcons(context,"Placement", 2, "placement.png", 45,"/placement",null),
+                    TapIcons(context,"Leaves", 2, "leaves.png", 45, "/placement",null),
+                    TapIcons(context,"Result", 2, "result.png", 45, "/placement",null),
+                    TapIcons(context,"Exams", 2, "exam.png", 45, "/placement",null),
+                    TapIcons(context,"Holidays", 2, "holiday.png", 45, "/placement",null),
+                    TapIcons(context,"Timetable", 2, "timetable.png", 45, "/placement",null),
+                    TapIcons(context,"Faculties", 2, "faculty.png", 45, "/placement",null),
+                    TapIcons(context,"Noticeboard", 2, "noticeboard.png", 45, "/placement",null),
                   ],
                 ),
               ),

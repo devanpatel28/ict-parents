@@ -19,7 +19,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> with 
   final AttendanceController attendanceController = Get.put(AttendanceController());
   List<TotalAttendance>? attendanceList;
   List<AttendanceByDate>? todayAttendanceList;
-  bool isLoadingTotal = true;
+                                bool isLoadingTotal = true;
   bool isLoadingToday = true;
   late AnimationController _controller;
   String formattedDate = DateFormat('dd MMM yyyy').format(DateTime.now());
@@ -39,7 +39,8 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> with 
     _controller.dispose();
     super.dispose();
   }
-  void fetchAttendance() async {
+
+  Future<void> fetchAttendance() async {
     setState(() {
       isLoadingTotal=true;
     });
@@ -53,7 +54,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> with 
       isLoadingTotal = false;
     });
   }
-  void fetchTodayAttendance() async {
+  Future<void> fetchTodayAttendance() async {
     setState(() {
       isLoadingToday=true;
     });
@@ -68,6 +69,11 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> with 
       }
       isLoadingToday = false;
     });
+  }
+
+  Future<void> _refreshData() async {
+    await fetchAttendance();
+    await fetchTodayAttendance();
   }
 
   @override
@@ -99,268 +105,250 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> with 
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround, // Space between icon and percentage
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Total Attendance',
-                                style: TextStyle(
-                                  fontSize: getSize(context, 2.5),
-                                  fontFamily: "mu_reg",
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Text color
-                                ),
-                              ),
-                              Text(
-                                'Till Today',
-                                style: TextStyle(
-                                  fontSize: getSize(context, 2),
-                                  fontFamily: "mu_reg",
-                                  color: Colors.red, // Text color for 'Till Yesterday'
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(height: getHeight(context, 0.08),width: getWidth(context, 0.005),color: muGrey2,),
-                    RadialIndicator(context,avgAttendance),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Divider(),
-              ),
-              avgAttendance>0&&avgAttendance<75?
-                  Column(
+          child: RefreshIndicator(
+            backgroundColor: muColor,
+            color: Colors.white,
+            onRefresh: ()=>_refreshData(),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround, // Space between icon and percentage
                     children: [
-                      AnimatedBuilder(
-                        animation: _controller, // Listen to the animation
-                        builder: (BuildContext context, Widget? child) {
-                          return Opacity(
-                            opacity: _controller.value, // Use the controller's value directly for opacity
-                            child: Card(
-                              color: Colors.red,
-                              child: Container(
-                                width: double.infinity,
-                                height: getHeight(context, 0.07),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text("Student Attendance is less than 75%, So student will not be allowed to appear in exams.",
-                                    style: TextStyle(
-                                      fontFamily: "mu_reg",
-                                      color: Colors.white,
-                                      fontSize: getSize(context, 2),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Total Attendance',
+                                  style: TextStyle(
+                                    fontSize: getSize(context, 2.5),
+                                    fontFamily: "mu_reg",
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black, // Text color
+                                  ),
+                                ),
+                                Text(
+                                  'Till Today',
+                                  style: TextStyle(
+                                    fontSize: getSize(context, 2),
+                                    fontFamily: "mu_reg",
+                                    color: Colors.red, // Text color for 'Till Yesterday'
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(height: getHeight(context, 0.08),width: getWidth(context, 0.005),color: muGrey2,),
+                      RadialIndicator(context,avgAttendance),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Divider(),
+                ),
+                avgAttendance>0&&avgAttendance<75?
+                    Column(
+                      children: [
+                        AnimatedBuilder(
+                          animation: _controller, // Listen to the animation
+                          builder: (BuildContext context, Widget? child) {
+                            return Opacity(
+                              opacity: _controller.value, // Use the controller's value directly for opacity
+                              child: Card(
+                                color: Colors.red,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: getHeight(context, 0.07),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text("Student Attendance is less than 75%, So student will not be allowed to appear in exams.",
+                                      style: TextStyle(
+                                        fontFamily: "mu_reg",
+                                        color: Colors.white,
+                                        fontSize: getSize(context, 2),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
+                            );
+                          },
+                        ),
 
-                      Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: Divider(),
-                      ),
-                    ],
-                  ):Container(),
-              // Inside the build method, after your existing content
-              Column(
-                children: [
-                  Heading1(context, "Today's Attendance  -  ( $formattedDate )", 2.5, 8),
-                  isLoadingToday
-                      ? Center(child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator(color: muColor, strokeWidth: 3,),
-                      ))
-                      : todayAttendanceList != null && todayAttendanceList!.isNotEmpty
-                      ? ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: todayAttendanceList!.length,
-                    itemBuilder: (context, index) {
-                      AttendanceByDate attendance = todayAttendanceList![index];
-                      return AttendanceCard(
-                          context,
-                          attendance.subjectName,
-                          attendance.facultyName,
-                          attendance.startTime.substring(0,5),
-                          attendance.endTime.substring(0,5),
-                          attendance.status
-                      );
-                    },
-                  ): Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text('No attendance today', style: TextStyle(fontFamily: "mu_reg",fontSize: getSize(context, 2))),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Divider(),
-              ),
-              Heading1(context, "All Attendance", 2.5, 8),
-              isLoadingTotal
-                  ? Center(child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircularProgressIndicator(color: muColor, strokeWidth: 3,),
-              ))
-                  : attendanceList != null && attendanceList!.isNotEmpty
-                  ? Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top:8.0),
-                  child: DataTable(
-                      headingRowColor: WidgetStateColor.resolveWith((states) => muColor50),
-                      dataRowColor: WidgetStateColor.resolveWith((states) => muGrey),
-                      border: TableBorder.all(
-                          borderRadius: BorderRadius.circular(getSize(context, 1),),
-                          color: Colors.black.withOpacity(0.25)
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      columnSpacing: getWidth(context, 0.08),
-                      columns: [
-                        DataColumn(
-                          label: Text(
-                            'Subject',
-                            style: TextStyle(
-                                fontFamily: 'mu_bold',
-                                fontSize: getSize(context, 2.25),
-                                color: Colors.black  // Set text color to black
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Total',
-                            style: TextStyle(
-                                fontFamily: 'mu_bold',
-                                fontSize: getSize(context, 2.25),
-                                color: Colors.black  // Set text color to black
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Present',
-                            style: TextStyle(
-                                fontFamily: 'mu_bold',
-                                fontSize: getSize(context, 2.25),
-                                color: Colors.black  // Set text color to black
-                            ),
-                          ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Divider(),
                         ),
                       ],
-                      rows: attendanceList!.map((attendance) {
-                        return DataRow(cells: [
-                          DataCell(
-                            Container(
-                              width: getWidth(context, 0.4), // Manage cell width
-                              child: Text(
-                                attendance.subjectName,
-                                style: TextStyle(fontFamily: 'mu_reg', fontSize: getSize(context, 2)),
-                                overflow: TextOverflow.fade, // Handle overflow
-                              ),
-                            ),
-                          ),
-                          DataCell(
-                            Center(
-                              child: Text(
-                                attendance.totalLec.toString(),
-                                style: TextStyle(fontFamily: 'mu_reg', fontSize: getSize(context, 2.5)),
-                              ),
-                            ),
-                          ),
-                          DataCell(
-                            Center(
-                              child: Text(
-                                attendance.attendLec.toString(),
-                                style: TextStyle(fontFamily: 'mu_reg', fontSize: getSize(context, 2.5)),
-                              ),
-                            ),
-                          ),
-                        ]);
-                      }).toList()
-                        ..add(
-                          DataRow(cells: [
-                            DataCell(
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  'Final Total',
-                                  style: TextStyle(fontFamily: 'mu_bold', fontSize: getSize(context, 2.25)),
-                                ),
-                              ),
-                            ),
-                            DataCell(
-                              Center(
-                                child: Text(
-                                  totalAttendance.toStringAsFixed(0),
-                                  style: TextStyle(fontFamily: 'mu_bold', fontSize: getSize(context, 2.5)),
-                                ),
-                              ),
-                            ),
-                            DataCell(
-                              Center(
-                                child: Text(
-                                  totalPresent.toStringAsFixed(0),
-                                  style: TextStyle(fontFamily: 'mu_bold', fontSize: getSize(context, 2.5)),
-                                ),
-                              ),
-                            ),
-                          ]),
-                        )
-                  ),
-                ),
-              ):Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                    ):Container(),
+                // Inside the build method, after your existing content
+                Column(
                   children: [
-                    Text('No attendance data found', style: TextStyle(fontFamily: "mu_reg",fontSize: getSize(context, 2))),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: (){
-                        fetchAttendance();
-                        fetchTodayAttendance();
+                    Heading1(context, "Today's Attendance  -  ( $formattedDate )", 2.5, 8),
+                    isLoadingToday
+                        ? Center(child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(color: muColor, strokeWidth: 3,),
+                        ))
+                        : todayAttendanceList != null && todayAttendanceList!.isNotEmpty
+                        ? ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: todayAttendanceList!.length,
+                      itemBuilder: (context, index) {
+                        AttendanceByDate attendance = todayAttendanceList![index];
+                        return AttendanceCard(
+                            context,
+                            attendance.subjectName,
+                            attendance.facultyName,
+                            attendance.startTime.substring(0,5),
+                            attendance.endTime.substring(0,5),
+                            attendance.status
+                        );
                       },
-                      child: Container(
-                        width: getWidth(context, 0.2),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 5.0),
-                              child: Icon(Icons.autorenew_rounded,weight: 10,color: Colors.white,),
-                            ),
-                            Text('Re-Try',style: TextStyle(color:Colors.white,fontFamily: "mu_",fontSize: getSize(context, 2))),
-                          ],
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: muColor, // Button color
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ): Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text('No attendance today', style: TextStyle(fontFamily: "mu_reg",fontSize: getSize(context, 2))),
                       ),
                     ),
                   ],
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Divider(),
+                ),
+                Heading1(context, "All Attendance", 2.5, 8),
+                isLoadingTotal
+                    ? Center(child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(color: muColor, strokeWidth: 3,),
+                ))
+                    : attendanceList != null && attendanceList!.isNotEmpty
+                    ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top:8.0),
+                    child: DataTable(
+                        headingRowColor: WidgetStateColor.resolveWith((states) => muColor50),
+                        dataRowColor: WidgetStateColor.resolveWith((states) => muGrey),
+                        border: TableBorder.all(
+                            borderRadius: BorderRadius.circular(getSize(context, 1),),
+                            color: Colors.black.withOpacity(0.25)
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        columnSpacing: getWidth(context, 0.08),
+                        columns: [
+                          DataColumn(
+                            label: Text(
+                              'Subject',
+                              style: TextStyle(
+                                  fontFamily: 'mu_bold',
+                                  fontSize: getSize(context, 2.25),
+                                  color: Colors.black  // Set text color to black
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Total',
+                              style: TextStyle(
+                                  fontFamily: 'mu_bold',
+                                  fontSize: getSize(context, 2.25),
+                                  color: Colors.black  // Set text color to black
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Present',
+                              style: TextStyle(
+                                  fontFamily: 'mu_bold',
+                                  fontSize: getSize(context, 2.25),
+                                  color: Colors.black  // Set text color to black
+                              ),
+                            ),
+                          ),
+                        ],
+                        rows: attendanceList!.map((attendance) {
+                          return DataRow(cells: [
+                            DataCell(
+                              Container(
+                                width: getWidth(context, 0.4), // Manage cell width
+                                child: Text(
+                                  attendance.subjectName,
+                                  style: TextStyle(fontFamily: 'mu_reg', fontSize: getSize(context, 2)),
+                                  overflow: TextOverflow.fade, // Handle overflow
+                                ),
+                              ),
+                            ),
+                            DataCell(
+                              Center(
+                                child: Text(
+                                  attendance.totalLec.toString(),
+                                  style: TextStyle(fontFamily: 'mu_reg', fontSize: getSize(context, 2.5)),
+                                ),
+                              ),
+                            ),
+                            DataCell(
+                              Center(
+                                child: Text(
+                                  attendance.attendLec.toString(),
+                                  style: TextStyle(fontFamily: 'mu_reg', fontSize: getSize(context, 2.5)),
+                                ),
+                              ),
+                            ),
+                          ]);
+                        }).toList()
+                          ..add(
+                            DataRow(cells: [
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'Final Total',
+                                    style: TextStyle(fontFamily: 'mu_bold', fontSize: getSize(context, 2.25)),
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Center(
+                                  child: Text(
+                                    totalAttendance.toStringAsFixed(0),
+                                    style: TextStyle(fontFamily: 'mu_bold', fontSize: getSize(context, 2.5)),
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Center(
+                                  child: Text(
+                                    totalPresent.toStringAsFixed(0),
+                                    style: TextStyle(fontFamily: 'mu_bold', fontSize: getSize(context, 2.5)),
+                                  ),
+                                ),
+                              ),
+                            ]),
+                          )
+                    ),
+                  ),
+                ):Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('No attendance data found', style: TextStyle(fontFamily: "mu_reg",fontSize: getSize(context, 2))),
+                    ],
+                  ),
+                ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

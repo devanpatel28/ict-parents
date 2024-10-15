@@ -1,13 +1,25 @@
 class TotalAttendance {
   String subjectName;
+  String subjectShortName;
+  String lec_type;
+  int subjectId;
   int totalLec;
   int attendLec;
 
-  TotalAttendance({required this.subjectName, required this.totalLec, required this.attendLec});
+  TotalAttendance({
+    required this.subjectName,
+    required this.subjectShortName,
+    required this.lec_type,
+    required this.subjectId,
+    required this.totalLec,
+    required this.attendLec});
 
   factory TotalAttendance.fromJson(Map<String, dynamic> json) {
     return TotalAttendance(
+      subjectId:json['id'],
       subjectName: json['subject_name'],
+      subjectShortName: json['short_name'],
+      lec_type: json['lec_type'],
       totalLec: json['total_lec'],
       attendLec: json['attend_lec'],
     );
@@ -15,7 +27,10 @@ class TotalAttendance {
 
   Map<String, dynamic> toJson() {
     return {
+      'id':subjectId,
       'subject_name': subjectName,
+      'shortname':subjectShortName,
+      'lec_type':lec_type,
       'total_lec': totalLec,
       'attend_lec': attendLec,
     };

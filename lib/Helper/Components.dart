@@ -281,8 +281,14 @@ Heading1(context, String str, double size, double leftPad) {
   );
 }
 
-AttendanceCard(context, String subName, String facName, String startTime,
-    String endTime, String status) {
+AttendanceCard(
+    context,
+    String subName,
+    String facName,
+    String startTime,
+    String endTime,
+    String status,
+    String lecType) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Container(
@@ -295,8 +301,7 @@ AttendanceCard(context, String subName, String facName, String startTime,
         elevation: null,
         shadowColor: Colors.transparent,
         child: ListTile(
-          title: Text(
-            subName,
+          title: Text("$subName  ( $lecType )",
             style: TextStyle(
               letterSpacing: 0,
               fontSize: getSize(context, 2.4),

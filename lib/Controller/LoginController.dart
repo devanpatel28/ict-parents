@@ -12,7 +12,7 @@ class LoginController extends GetxController {
     try {
       Map<String, String> body = {
         'username': username,
-        'password': password,
+        'password': password
       };
       final response = await http.post(
         Uri.parse(validateLoginAPI),

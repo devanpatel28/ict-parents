@@ -4,6 +4,7 @@ class AttendanceByDate {
   String startTime;
   String endTime;
   String status;
+  String lecType;
 
   AttendanceByDate({
     required this.subjectName,
@@ -11,6 +12,7 @@ class AttendanceByDate {
     required this.startTime,
     required this.endTime,
     required this.status,
+    required this.lecType,
   });
 
   factory AttendanceByDate.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class AttendanceByDate {
       startTime :json['class_start_time'],
       endTime :json['class_end_time'],
       status :json['attendance_status'],
+      lecType :json['lec_type'],
     );
   }
 
@@ -29,7 +32,8 @@ class AttendanceByDate {
       'faculty_name': facultyName,
       'class_start_time': startTime,
       'class_end_time': endTime,
-      'attendance_status': status
+      'attendance_status': status,
+      'lec_type':lecType
     };
   }
 }

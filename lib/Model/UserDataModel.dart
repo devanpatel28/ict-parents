@@ -65,12 +65,13 @@ class StudentDetails {
   String? firstName;
   String? lastName;
   String? course;
-  int? batchYear;
+  int? batchStartYear;
+  int? batchEndYear;
   String? email;
   String? phone;
 
   StudentDetails(
-      {this.studentId, this.enrollmentNo, this.grNo, this.firstName, this.lastName, this.course, this.batchYear, this.email, this.phone});
+      {this.studentId, this.enrollmentNo, this.grNo, this.firstName, this.lastName, this.course, this.batchStartYear, this.batchEndYear, this.email, this.phone});
 
   factory StudentDetails.fromJson(Map<String, dynamic> json) {
     return StudentDetails(
@@ -80,7 +81,8 @@ class StudentDetails {
       firstName: json['first_name'],
       lastName: json['last_name'],
       course: json['course'],
-      batchYear: json['batch_year'],
+      batchStartYear: json['batch_start_year'],
+      batchEndYear: json['batch_end_year'],
       email: json['s_email'],
       phone: json['s_phone_no'],
     );
@@ -94,7 +96,8 @@ class StudentDetails {
       'first_name': firstName,
       'last_name': lastName,
       'course': course,
-      'batch_year': batchYear,
+      'batch_start_year': batchStartYear,
+      'batch_end_year': batchEndYear,
       's_email': email,
       's_phone_no': phone,
     };

@@ -408,14 +408,20 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
             ),
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Center(
-                child: Text(
-                  totalAttendance != 0
-                      ? ((totalPresent / totalAttendance) * 100)
-                          .toStringAsFixed(0)
-                      : "0", // Avoid division by zero
-                  style: TextStyle(
-                      fontFamily: 'mu_reg', fontSize: getSize(context, 2.5)),
+              child: Container(
+                color: muColor,
+                child: Padding(
+                  padding: EdgeInsets.all(getSize(context, 0.6)),
+                  child: Center(
+                    child: Text("${totalAttendance != 0
+                        ? ((totalPresent / totalAttendance) * 100)
+                        .toStringAsFixed(0)
+                        : "0"}%", // Avoid division by zero
+                      style: TextStyle(
+                          fontFamily: 'mu_bold',color: Colors.white
+                          , fontSize: getSize(context, 3)),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -719,6 +725,10 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
                               ],
                             ),
                           ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Divider(),
+                ),
               ],
             ),
           ),

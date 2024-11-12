@@ -5,6 +5,7 @@ class TotalAttendance {
   int subjectId;
   int totalLec;
   int attendLec;
+  int extraLec;
 
   TotalAttendance({
     required this.subjectName,
@@ -12,7 +13,8 @@ class TotalAttendance {
     required this.lec_type,
     required this.subjectId,
     required this.totalLec,
-    required this.attendLec});
+    required this.attendLec,
+    required this.extraLec});
 
   factory TotalAttendance.fromJson(Map<String, dynamic> json) {
     return TotalAttendance(
@@ -22,6 +24,7 @@ class TotalAttendance {
       lec_type: json['lec_type'],
       totalLec: json['total_lec'],
       attendLec: json['attend_lec'],
+      extraLec: json['extra_lec']
     );
   }
 
@@ -33,6 +36,7 @@ class TotalAttendance {
       'lec_type':lec_type,
       'total_lec': totalLec,
       'attend_lec': attendLec,
+      'extra_lec' :extraLec
     };
   }
 }

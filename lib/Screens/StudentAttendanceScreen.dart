@@ -8,6 +8,8 @@ import '../Helper/Style.dart';
 import '../Model/TotalAttendanceModel.dart';
 import 'package:intl/intl.dart';
 
+import 'adaptive_loading_screen.dart';
+
 class StudentAttendanceScreen extends StatefulWidget {
   const StudentAttendanceScreen({super.key});
 
@@ -22,20 +24,22 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
       Get.put(AttendanceController());
   List<TotalAttendance>? attendanceList;
   List<AttendanceByDate>? todayAttendanceList;
-  bool isLoadingTotal = true;
-  bool isLoadingToday = true;
+  bool isLoading = false;
+  bool titleTap = false;
   late AnimationController _controller;
   String formattedDate = DateFormat('dd MMM yyyy').format(DateTime.now());
 
   @override
   void initState() {
     super.initState();
+    isLoading=true;
     fetchAttendance();
     fetchTodayAttendance();
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     )..repeat(reverse: true);
+    isLoading=false;
   }
 
   @override
@@ -45,9 +49,6 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
   }
 
   Future<void> fetchAttendance() async {
-    setState(() {
-      isLoadingTotal = true;
-    });
     int studentId = Get.arguments['student_id'];
     List<TotalAttendance>? fetchedAttendanceList =
         await attendanceController.totalAttendance(studentId);
@@ -56,14 +57,10 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
       if (fetchedAttendanceList != null) {
         attendanceList = fetchedAttendanceList;
       }
-      isLoadingTotal = false;
     });
   }
 
   Future<void> fetchTodayAttendance() async {
-    setState(() {
-      isLoadingToday = true;
-    });
     int studentId = Get.arguments['student_id'];
     String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     print("DATE=$todayDate");
@@ -74,7 +71,6 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
       if (fetchedTodayAttendanceList != null) {
         todayAttendanceList = fetchedTodayAttendanceList;
       }
-      isLoadingToday = false;
     });
   }
 
@@ -87,6 +83,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
   Widget build(BuildContext context) {
     // Calculate total attendance and present lectures
     double totalAttendance = 0;
+    double totalExtra = 0;
     double totalPresent = 0;
     double totalLecL = 0;
     double attendLecL = 0;
@@ -95,6 +92,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
 
     if (attendanceList != null) {
       for (var attendance in attendanceList!) {
+        totalExtra += attendance.extraLec>-1?attendance.extraLec:0;
         totalAttendance += attendance.totalLec;
         totalPresent += attendance.attendLec;
       }
@@ -129,7 +127,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
           // Calculate percentage, handle zero to avoid NaN
           double percentage = 0.0;
           if (attendance.totalLec != 0) {
-            percentage = (attendance.attendLec / attendance.totalLec) * 100;
+            percentage = ((attendance.attendLec+attendance.extraLec) / attendance.totalLec) * 100;
           }
 
           rows.add(
@@ -198,6 +196,18 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
                     ),
                   ),
                 ),
+                // Extra lectures
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.middle,
+                  child: Center(
+                    child: Text(
+                      attendance.extraLec>-1?attendance.extraLec.toString():"",
+                      style: TextStyle(
+                          fontFamily: 'mu_reg',
+                          fontSize: getSize(context, 2.5)),
+                    ),
+                  ),
+                ),
                 // Percentage (handle NaN and format)
                 TableCell(
                   verticalAlignment: TableCellVerticalAlignment.middle,
@@ -234,7 +244,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
         }
       });
 
-      // Add final total row
+      //   total row
       rows.add(
         TableRow(
           decoration: BoxDecoration(border: Border(top: BorderSide())),
@@ -285,6 +295,10 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
             ),
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
+              child: Container()
+            ),
+            TableCell(
+              verticalAlignment: TableCellVerticalAlignment.middle,
               child: Center(
                 child: Text(
                   totalLecL != 0
@@ -298,19 +312,12 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
           ],
         ),
       );
-
       rows.add(
         TableRow(
           children: [
             TableCell(
-              verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Center(
-                child: Text(
-                  "",
-                  style: TextStyle(
-                      fontFamily: 'mu_reg', fontSize: getSize(context, 2.5)),
-                ),
-              ),
+                verticalAlignment: TableCellVerticalAlignment.middle,
+                child: Container()
             ),
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
@@ -343,6 +350,10 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
               ),
             ),
             TableCell(
+                verticalAlignment: TableCellVerticalAlignment.middle,
+                child: Container()
+            ),
+            TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
               child: Center(
                 child: Text(
@@ -358,6 +369,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
         ),
       );
 
+//  final total row
       rows.add(
         TableRow(
           decoration: BoxDecoration(
@@ -407,6 +419,19 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
               ),
             ),
             TableCell(
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    totalExtra.toStringAsFixed(0),
+                    style: TextStyle(
+                        fontFamily: 'mu_bold', fontSize: getSize(context, 2.5)),
+                  ),
+                ),
+              ),
+            ),
+            TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
               child: Container(
                 color: muColor,
@@ -414,7 +439,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
                   padding: EdgeInsets.all(getSize(context, 0.6)),
                   child: Center(
                     child: Text("${totalAttendance != 0
-                        ? ((totalPresent / totalAttendance) * 100)
+                        ? (((totalPresent+totalExtra) / totalAttendance) * 100)
                         .toStringAsFixed(0)
                         : "0"}%", // Avoid division by zero
                       style: TextStyle(
@@ -433,7 +458,8 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
     }
 
     double avgAttendance =
-        totalAttendance > 0 ? totalPresent / totalAttendance * 100 : 0;
+        totalAttendance > 0 ? (totalPresent+ totalExtra)/ totalAttendance * 100 : 0;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Attendance", style: AppbarStyle(context)),
@@ -447,7 +473,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
         backgroundColor: muColor,
         automaticallyImplyLeading: false,
       ),
-      body: Padding(
+      body: isLoading?AdaptiveLoadingScreen():Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: RefreshIndicator(
@@ -547,16 +573,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
                   children: [
                     Heading1(context,
                         "Today's Attendance  -  ( $formattedDate )", 2.5, 8),
-                    isLoadingToday
-                        ? Center(
-                            child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CircularProgressIndicator(
-                              color: muColor,
-                              strokeWidth: 3,
-                            ),
-                          ))
-                        : todayAttendanceList != null &&
+                    todayAttendanceList != null &&
                                 todayAttendanceList!.isNotEmpty
                             ? ListView.builder(
                                 shrinkWrap: true,
@@ -591,16 +608,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
                   child: Divider(),
                 ),
                 Heading1(context, "Attendance Report", 2.5, 8),
-                isLoadingTotal
-                    ? Center(
-                        child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator(
-                          color: muColor,
-                          strokeWidth: 3,
-                        ),
-                      ))
-                    : attendanceList != null && attendanceList!.isNotEmpty
+                attendanceList != null && attendanceList!.isNotEmpty
                         ? Center(
                             child: Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
@@ -614,11 +622,13 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
                                       1: FlexColumnWidth(
                                           getSize(context, 0.04)), // Lec Type
                                       2: FlexColumnWidth(
-                                          getSize(context, 0.07)), // Total
+                                          getSize(context, 0.06)), // Total
                                       3: FlexColumnWidth(
-                                          getSize(context, 0.08)), // Present
+                                          getSize(context, 0.06)), // Present
                                       4: FlexColumnWidth(
-                                          getSize(context, 0.07)), // Present
+                                          getSize(context, 0.06)), // Extra
+                                      5: FlexColumnWidth(
+                                          getSize(context, 0.08)),// %
                                     },
                                     border: TableBorder(
                                       verticalInside: BorderSide(),
@@ -636,7 +646,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Text(
-                                                  'Subject',
+                                                  'Sub',
                                                   style: TextStyle(
                                                     fontFamily: 'mu_bold',
                                                     fontSize:
@@ -678,11 +688,28 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen>
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Text(
-                                                  'Present',
+                                                  'Pre',
                                                   style: TextStyle(
                                                     fontFamily: 'mu_bold',
                                                     fontSize:
                                                         getSize(context, 2.25),
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'Ext',
+                                                  style: TextStyle(
+                                                    fontFamily: 'mu_bold',
+                                                    fontSize:
+                                                    getSize(context, 2.25),
                                                     color: Colors.white,
                                                   ),
                                                 ),

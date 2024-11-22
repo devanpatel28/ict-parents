@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import '../API/API.dart';
 import '../Model/UserDataModel.dart';
+import '../Network/API.dart';
 
 class LoginController extends GetxController {
   final box = GetStorage();
@@ -16,7 +16,10 @@ class LoginController extends GetxController {
       };
       final response = await http.post(
         Uri.parse(validateLoginAPI),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': validApiKey,
+        },
         body: json.encode(body),
       );
 

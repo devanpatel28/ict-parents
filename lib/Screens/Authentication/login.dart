@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ict_mu_parents/Controllers/login_controller.dart';
 import 'package:ict_mu_parents/Helper/Colors.dart';
-
-import '../Controller/LoginController.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

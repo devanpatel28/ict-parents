@@ -4,12 +4,14 @@ import 'package:get_storage/get_storage.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final box = GetStorage();  // GetStorage instance
+  final box = GetStorage();
 
   @override
   void initState() {
@@ -18,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateAfterSplash() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     bool isLoggedIn = box.read('loggedin') ?? false;
 
     if (isLoggedIn) {
@@ -33,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Image(
-          image: AssetImage('assets/images/mu_logo.png'),
+          image: const AssetImage('assets/images/mu_logo.png'),
           height: getHeight(context, 0.13),
         ),
       ),

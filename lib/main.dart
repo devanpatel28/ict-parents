@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:ict_mu_parents/Screens/ForgotPasswordScreen.dart';
-import 'package:ict_mu_parents/Screens/SplashScreen.dart';
-import 'package:ict_mu_parents/Screens/StudentAttendanceScreen.dart';
-
-import 'Screens/DashboardScreen.dart';
-import 'Screens/LoginScreen.dart';
+import 'package:ict_mu_parents/Bindings/attendance_show_binding.dart';
+import 'package:ict_mu_parents/Screens/Authentication/forgot_password.dart';
+import 'package:ict_mu_parents/Screens/Splash/main_splash.dart';
+import 'Screens/Attendance/attendance_show.dart';
+import 'Screens/Home/dashboard_home.dart';
+import 'Screens/Authentication/login.dart';
 import 'Screens/PlacementScreen.dart';
 
 void main() {
@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/attendance",
             transition: Transition.fadeIn,
+            binding: AttendanceShowBinding(),
             page: () => const StudentAttendanceScreen()
         ),
       ],

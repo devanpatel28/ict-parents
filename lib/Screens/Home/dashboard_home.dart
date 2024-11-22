@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
-import '../API/API.dart';
-import '../Helper/Colors.dart';
-import '../Model/UserDataModel.dart';
+import '../../Helper/Colors.dart';
+import '../../Model/UserDataModel.dart';
+import '../../Network/API.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

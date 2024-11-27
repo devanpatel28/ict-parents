@@ -1,18 +1,19 @@
 String Host = "https://882a-2409-40c1-3015-16c4-3449-30c6-4cc2-9f1b.ngrok-free.app";
-String Path = "/ict-server/api/index.php";
+String serverPath = "/ict-server/api/index.php";
 
 String CurrentVersion = "1.0";
 String validApiKey = "your-secure-api-key";
 String updateURL = 'https://devanpatel28.blogspot.com/';
 
+String updatePasswordAPI = '$Host$serverPath/Password/updatePassword';
 
-String validateVersionAPI = '$Host$Path/AppVersion/check';
-String validateLoginAPI = '$Host$Path/Parent/login';
+String validateVersionAPI = '$Host$serverPath/AppVersion/check';
+String validateLoginAPI = '$Host$serverPath/Parent/login';
 
-String totalAttendanceAPI = '$Host$Path/Attendance/TotalAttendance';
-String attendanceByDateAPI = '$Host$Path/Attendance/AttendanceByDate';
+String totalAttendanceAPI = '$Host$serverPath/Attendance/TotalAttendance';
+String attendanceByDateAPI = '$Host$serverPath/Attendance/AttendanceByDate';
 
-String facultyContactAPI = '$Host$Path/Parent/getFacultyContact';
+String facultyContactAPI = '$Host$serverPath/Parent/getFacultyContact';
 
 String studentImageAPI(gr){
   String api = "https://student.marwadiuniversity.ac.in:553/handler/getImage.ashx?SID=$gr";

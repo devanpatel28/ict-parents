@@ -23,130 +23,133 @@ double getSize(context, double i) {
 }
 
 Widget BlackTag(context, Color? color, String? Line1, String? Line2,
-    Widget? imageWidget, bool isReverse) {
-  return Container(
-    alignment: Alignment.centerRight,
-    child: Row(
-      mainAxisAlignment:
-          MainAxisAlignment.spaceBetween, // Conditional alignment
-      children: isReverse
-          ? [
-              Container(
-                height: 65,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: color ?? Colors.black,
-                  borderRadius: BorderRadius.horizontal(
-                    right: Radius.circular(500),
-                  ),
-                ),
-              ),
-              Container(
-                height: 65,
-                width: 300,
-                decoration: BoxDecoration(
-                  color: color ?? Colors.black,
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(500),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        height: 55,
-                        width: 55,
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(500))),
-                        child: imageWidget,
-                      ),
+    Widget? imageWidget, bool isReverse,String onTapPath,arg) {
+  return InkWell(
+    onTap: ()=>Get.toNamed(onTapPath,arguments: arg),
+    child: Container(
+      alignment: Alignment.centerRight,
+      child: Row(
+        mainAxisAlignment:
+            MainAxisAlignment.spaceBetween, // Conditional alignment
+        children: isReverse
+            ? [
+                Container(
+                  height: 65,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: color ?? Colors.black,
+                    borderRadius: BorderRadius.horizontal(
+                      right: Radius.circular(500),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: getWidth(context, 0.5),
-                            child: Text(
-                              Line1 ?? "Loading...",
-                              overflow: TextOverflow.ellipsis,
-                              style: tagStyle(Colors.white, 18, true),
+                  ),
+                ),
+                Container(
+                  height: 65,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    color: color ?? Colors.black,
+                    borderRadius: BorderRadius.horizontal(
+                      left: Radius.circular(500),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          height: 55,
+                          width: 55,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(500))),
+                          child: imageWidget,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: getWidth(context, 0.5),
+                              child: Text(
+                                Line1 ?? "Loading...",
+                                overflow: TextOverflow.ellipsis,
+                                style: tagStyle(Colors.white, 18, true),
+                              ),
                             ),
-                          ),
-                          Text(
-                            Line2 ?? "Loading...",
-                            overflow: TextOverflow.ellipsis,
-                            style: tagStyle(Light2, 15, false),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ]
-          : [
-              Container(
-                height: 65,
-                width: 300,
-                decoration: BoxDecoration(
-                  color: color ?? Colors.black,
-                  borderRadius: BorderRadius.horizontal(
-                    right: Radius.circular(500),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            child: Text(
-                              Line1 ?? "Loading...",
+                            Text(
+                              Line2 ?? "Loading...",
                               overflow: TextOverflow.ellipsis,
-                              style: tagStyle(Colors.white, 18, true),
+                              style: tagStyle(Light2, 15, false),
                             ),
-                          ),
-                          Text(
-                            Line2 ?? "Loading...",
-                            overflow: TextOverflow.ellipsis,
-                            style: tagStyle(Light2, 15, false),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              500), // Clipping the image into a circle
-                          child: imageWidget),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 65,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: color ?? Colors.black,
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(500),
+                    ],
                   ),
                 ),
-              ),
-            ],
+              ]
+            : [
+                Container(
+                  height: 65,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    color: color ?? Colors.black,
+                    borderRadius: BorderRadius.horizontal(
+                      right: Radius.circular(500),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              child: Text(
+                                Line1 ?? "Loading...",
+                                overflow: TextOverflow.ellipsis,
+                                style: tagStyle(Colors.white, 18, true),
+                              ),
+                            ),
+                            Text(
+                              Line2 ?? "Loading...",
+                              overflow: TextOverflow.ellipsis,
+                              style: tagStyle(Light2, 15, false),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                500), // Clipping the image into a circle
+                            child: imageWidget),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 65,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: color ?? Colors.black,
+                    borderRadius: BorderRadius.horizontal(
+                      left: Radius.circular(500),
+                    ),
+                  ),
+                ),
+              ],
+      ),
     ),
   );
 }

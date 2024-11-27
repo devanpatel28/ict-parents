@@ -27,22 +27,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     Map<String, dynamic> storedData = box.read('userdata');
     userData = UserData.fromJson(storedData);
-    print('user data == ${userData.studentDetails?.grNo}');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed:() async {
-          await CachedNetworkImage.evictFromCache(
-              studentImageAPI(userData.studentDetails!.grNo));
-          box.write('loggedin', false);
-          box.write('userdata', null);
-          Get.offNamed('/login');
-        },
-        child: Icon(Icons.exit_to_app),
-      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Dashboard", style: TextStyle(color: Colors.black, fontFamily: "mu_reg", fontSize: 23)),
@@ -64,7 +53,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 errorWidget: (context, url, error) => HugeIcon(icon: HugeIcons.strokeRoundedUser, size: 30,color: Colors.black,),
                 fit: BoxFit.cover,
               ),
-              true,
+                true,
+                '/profile',
+                userData
             ),
             SizedBox(height: 20),
             Padding(
@@ -109,6 +100,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 fit: BoxFit.cover,
               ),
               false,
+              "null",
+              null
             ),
           ],
         ),

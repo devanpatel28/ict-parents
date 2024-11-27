@@ -26,188 +26,183 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
         child: SingleChildScrollView(
             child:
                 Obx(
-                  ()=> Stack(
+                  ()=> controller.isLoadingUpdatePass.value?MuLoadingScreen():Column(
                     children: [
-                      controller.isLoadingUpdatePass.value?MuLoadingScreen():Container(),
-                      Column(
-                        children: [
-                          TextField(
-                            controller: controller.currentPass.value,
-                            cursorColor: muColor,
-                            obscureText: !controller.passShow.value,
-                            decoration: InputDecoration(
-                              labelText: 'Current Password',
-                              labelStyle: TextStyle(
-                                fontFamily: "mu_reg",
-                                color: muGrey2,
-                              ),
-                              hintText: 'Enter Current Password',
-                              hintStyle: TextStyle(
-                                fontFamily: "mu_reg",
-                                color: muGrey2,
-                              ),
-                              suffixIcon: InkWell(
-                                  onTap: () {
-                                    controller.passShow.value =
-                                        !controller.passShow.value;
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: HugeIcon(
-                                        icon: controller.passShow.value
-                                            ? HugeIcons.strokeRoundedView
-                                            : HugeIcons.strokeRoundedViewOff,
-                                        color: Colors.grey),
-                                  )),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: muGrey2, width: 1.5),
-                                borderRadius: BorderRadius.circular(borderRad),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: muGrey2, width: 1.5),
-                                borderRadius: BorderRadius.circular(borderRad),
-                              ),
-                            ),
-                            style: TextStyle(
-                              fontSize: getSize(context, 2.5),
-                              fontFamily: "mu_reg",
-                              fontWeight: FontWeight.w500,
-                            ),
+                      TextField(
+                        controller: controller.currentPass.value,
+                        cursorColor: muColor,
+                        obscureText: !controller.passShow.value,
+                        decoration: InputDecoration(
+                          labelText: 'Current Password',
+                          labelStyle: TextStyle(
+                            fontFamily: "mu_reg",
+                            color: muGrey2,
                           ),
-                          SizedBox(
-                            height: 30,
+                          hintText: 'Enter Current Password',
+                          hintStyle: TextStyle(
+                            fontFamily: "mu_reg",
+                            color: muGrey2,
                           ),
-                          TextField(
-                            controller: controller.newPass.value,
-                            cursorColor: muColor,
-                            obscureText: !controller.passShow.value,
-                            onChanged: (value) {
-                              controller.validatePassword(value);
-                              controller.checkPasswordMatch();
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'New Password',
-                              labelStyle: TextStyle(
-                                fontFamily: "mu_reg",
-                                color: muGrey2,
-                              ),
-                              hintText: 'Enter New Password',
-                              hintStyle: TextStyle(
-                                fontFamily: "mu_reg",
-                                color: muGrey2,
-                              ),
-                              suffixIcon: InkWell(
-                                  onTap: () {
-                                    controller.passShow.value =
-                                        !controller.passShow.value;
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: HugeIcon(
-                                        icon: controller.passShow.value
-                                            ? HugeIcons.strokeRoundedView
-                                            : HugeIcons.strokeRoundedViewOff,
-                                        color: Colors.grey),
-                                  )),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: muGrey2, width: 1.5),
-                                borderRadius: BorderRadius.circular(borderRad),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: muGrey2, width: 1.5),
-                                borderRadius: BorderRadius.circular(borderRad),
-                              ),
-                            ),
-                            style: TextStyle(
-                              fontSize: getSize(context, 2.5),
-                              fontFamily: "mu_reg",
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextField(
-                            controller: controller.confirmNewPass.value,
-                            cursorColor: controller.isPasswordMatch.value ? muColor : Colors.red,
-                            obscureText: !controller.passShow.value,
-                            onChanged: (value) {
-                              controller.checkPasswordMatch();
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Confirm New Password',
-                              labelStyle: TextStyle(
-                                fontFamily: "mu_reg",
-                                color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
-                              ),
-                              hintText: 'Re-Enter New Password',
-                              hintStyle: TextStyle(
-                                fontFamily: "mu_reg",
-                                color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
-                              ),
-                              suffixIcon: InkWell(
-                                onTap: () {
-                                  controller.passShow.value =
-                                  !controller.passShow.value;
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  child: HugeIcon(
+                          suffixIcon: InkWell(
+                              onTap: () {
+                                controller.passShow.value =
+                                    !controller.passShow.value;
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: HugeIcon(
                                     icon: controller.passShow.value
                                         ? HugeIcons.strokeRoundedView
                                         : HugeIcons.strokeRoundedViewOff,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                              // Border changes based on whether passwords match
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
-                                    width: 1.5),
-                                borderRadius: BorderRadius.circular(borderRad),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
-                                    width: 1.5),
-                                borderRadius: BorderRadius.circular(borderRad),
-                              ),
-                            ),
-                            style: TextStyle(
-                              fontSize: getSize(context, 2.5),
-                              fontFamily: "mu_reg",
-                              fontWeight: FontWeight.w500,
-                              color: controller.isPasswordMatch.value ? Colors.black : Colors.red
-                            ),
+                                    color: Colors.grey),
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: muGrey2, width: 1.5),
+                            borderRadius: BorderRadius.circular(borderRad),
                           ),
-                          SizedBox(height: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildValidationText("At least 8 characters", controller.isMinLength.value),
-                              _buildValidationText("At least one special character", controller.hasSpecialChar.value),
-                              _buildValidationText("At least one number", controller.hasNumber.value),
-                              _buildValidationText("At least one uppercase letter", controller.hasCapitalLetter.value),
-                            ],
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: muGrey2, width: 1.5),
+                            borderRadius: BorderRadius.circular(borderRad),
                           ),
-                          SizedBox(height: getHeight(context, 0.3)),
-                          controller.isPasswordValid?InkWell(
-                            onTap: ()=>controller.updatePassword(controller.userData.studentDetails!.grNo.toString()),
+                        ),
+                        style: TextStyle(
+                          fontSize: getSize(context, 2.5),
+                          fontFamily: "mu_reg",
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      TextField(
+                        controller: controller.newPass.value,
+                        cursorColor: muColor,
+                        obscureText: !controller.passShow.value,
+                        onChanged: (value) {
+                          controller.validatePassword(value);
+                          controller.checkPasswordMatch();
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'New Password',
+                          labelStyle: TextStyle(
+                            fontFamily: "mu_reg",
+                            color: muGrey2,
+                          ),
+                          hintText: 'Enter New Password',
+                          hintStyle: TextStyle(
+                            fontFamily: "mu_reg",
+                            color: muGrey2,
+                          ),
+                          suffixIcon: InkWell(
+                              onTap: () {
+                                controller.passShow.value =
+                                    !controller.passShow.value;
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: HugeIcon(
+                                    icon: controller.passShow.value
+                                        ? HugeIcons.strokeRoundedView
+                                        : HugeIcons.strokeRoundedViewOff,
+                                    color: Colors.grey),
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: muGrey2, width: 1.5),
+                            borderRadius: BorderRadius.circular(borderRad),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: muGrey2, width: 1.5),
+                            borderRadius: BorderRadius.circular(borderRad),
+                          ),
+                        ),
+                        style: TextStyle(
+                          fontSize: getSize(context, 2.5),
+                          fontFamily: "mu_reg",
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: controller.confirmNewPass.value,
+                        cursorColor: controller.isPasswordMatch.value ? muColor : Colors.red,
+                        obscureText: !controller.passShow.value,
+                        onChanged: (value) {
+                          controller.checkPasswordMatch();
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Confirm New Password',
+                          labelStyle: TextStyle(
+                            fontFamily: "mu_reg",
+                            color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
+                          ),
+                          hintText: 'Re-Enter New Password',
+                          hintStyle: TextStyle(
+                            fontFamily: "mu_reg",
+                            color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
+                          ),
+                          suffixIcon: InkWell(
+                            onTap: () {
+                              controller.passShow.value =
+                              !controller.passShow.value;
+                            },
                             child: Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Container(
-                                height: getHeight(context, 0.06),
-                                decoration: BoxDecoration(
-                                    color: muGrey,
-                                    border: Border.all(color: muGrey2),
-                                    borderRadius: BorderRadius.circular(borderRad)),
-                                child: Center(child: Text("Change Password",style: TextStyle(color: muColor,fontSize: 20),)),
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: HugeIcon(
+                                icon: controller.passShow.value
+                                    ? HugeIcons.strokeRoundedView
+                                    : HugeIcons.strokeRoundedViewOff,
+                                color: Colors.grey,
                               ),
                             ),
-                          ):Container()
+                          ),
+                          // Border changes based on whether passwords match
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(borderRad),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(borderRad),
+                          ),
+                        ),
+                        style: TextStyle(
+                          fontSize: getSize(context, 2.5),
+                          fontFamily: "mu_reg",
+                          fontWeight: FontWeight.w500,
+                          color: controller.isPasswordMatch.value ? Colors.black : Colors.red
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildValidationText("At least 8 characters", controller.isMinLength.value),
+                          _buildValidationText("At least one special character", controller.hasSpecialChar.value),
+                          _buildValidationText("At least one number", controller.hasNumber.value),
+                          _buildValidationText("At least one uppercase letter", controller.hasCapitalLetter.value),
                         ],
                       ),
+                      SizedBox(height: getHeight(context, 0.3)),
+                      controller.isPasswordValid?InkWell(
+                        onTap: ()=>controller.updatePassword(controller.userData.studentDetails!.grNo.toString()),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Container(
+                            height: getHeight(context, 0.06),
+                            decoration: BoxDecoration(
+                                color: muGrey,
+                                border: Border.all(color: muGrey2),
+                                borderRadius: BorderRadius.circular(borderRad)),
+                            child: Center(child: Text("Change Password",style: TextStyle(color: muColor,fontSize: 20),)),
+                          ),
+                        ),
+                      ):Container()
                     ],
                   ),
                 ),

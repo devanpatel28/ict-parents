@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ict_mu_parents/Controllers/login_controller.dart';
-import 'package:ict_mu_parents/Helper/Colors.dart';
+import 'package:ict_mu_parents/Helper/colors.dart';
+
+import '../Splash/ict_logo.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -44,10 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Image(
-                    image: AssetImage('assets/images/mu_logo.png'),
-                    height: 100,
-                  ),
+                  // const Image(
+                  //   image: AssetImage('assets/images/mu_logo.png'),
+                  //   height: 100,
+                  // ),
+                  const IctLogo(),
                   const SizedBox(height: 50),
                   Container(
                     height: MediaQuery.sizeOf(context).height * 0.06,
@@ -159,13 +162,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   InkWell(
                     onTap: () => Get.toNamed("/forgotPass"),
-                      child: Text("Forgot password?",
+                      child: const Text("Forgot password?",
                           style: TextStyle(fontFamily: "mu_bold"))
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   InkWell(
                     onTap: () async {
                       setState(() {

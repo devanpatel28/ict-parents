@@ -22,7 +22,6 @@ def flutterVersionName = localProperties.getProperty("flutter.versionName")
 if (flutterVersionName == null) {
     flutterVersionName = "1.0"
 }
-
 android {
     namespace = "com.ictmu.ict_mu_parents"
     compileSdk = flutter.compileSdkVersion
@@ -31,6 +30,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 
     defaultConfig {

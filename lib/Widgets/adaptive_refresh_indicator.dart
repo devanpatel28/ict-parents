@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ict_mu_parents/Helper/Colors.dart';
+import 'package:ict_mu_parents/Helper/colors.dart';
 
 class AdaptiveRefreshIndicator extends StatelessWidget {
   final Widget child;

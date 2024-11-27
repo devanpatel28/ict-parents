@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:ict_mu_parents/Helper/Colors.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:ict_mu_parents/Helper/colors.dart';
 
 import 'Style.dart';
 
@@ -154,59 +155,51 @@ Widget TapIcons(
     context,
     String name,
     double nameSize,
-    String iconFilename,
+    IconData iconData,
     double iconSize,
     String route,
     routeArg,
     ) {
   return InkWell(
     onTap: () => Get.toNamed(route, arguments: routeArg),
-    child: Container(
-      child: Column(
-        children: [
-          Container(
-            height: 75,
-            width: 75,
-            decoration: BoxDecoration(
-              color: muGrey,
-              borderRadius: BorderRadius.circular(15), // rounded corners
-            ),
-            child: Center(
-              child: Container(
-                height: iconSize,
-                width: iconSize,
-                decoration: BoxDecoration(
-
-                  image: DecorationImage(
-                    image: AssetImage(
-                        "assets/images/MainIcons/$iconFilename"), // replace with your asset path
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
+    child: Column(
+      children: [
+        Container(
+          height: 75,
+          width: 75,
+          decoration: BoxDecoration(
+            color: muGrey,
+            borderRadius: BorderRadius.circular(15), // rounded corners
+          ),
+          child: Center(
+            child: HugeIcon(
+              icon: iconData,
+              color: Colors.black,
+              size: iconSize,
             ),
           ),
-          Container(
-              height:getHeight(context, 0.05),
-              width: getWidth(context, 0.25),
-              child: Center(
-                child: Text(
-                  name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontFamily: 'mu_reg',
-                      color: muColor,
-                      height: 1,
-                      fontSize: getSize(context, nameSize)
-                  ),
-                  // softWrap: true,
-                  textAlign: TextAlign.center,
+        ),
+        SizedBox(height: getHeight(context, 0.005),),
+        SizedBox(
+            height:getHeight(context, 0.05),
+            width: getWidth(context, 0.25),
+            child: Center(
+              child: Text(
+                name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontFamily: 'mu_reg',
+                    color: muColor,
+                    height: 1,
+                    fontSize: getSize(context, nameSize)
                 ),
-              )
-          )
-        ],
-      ),
+                // softWrap: true,
+                textAlign: TextAlign.center,
+              ),
+            )
+        )
+      ],
     ),
   );
 }

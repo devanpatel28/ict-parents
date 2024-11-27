@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
-import '../../Helper/Colors.dart';
-import '../../Model/UserDataModel.dart';
+import '../../Helper/colors.dart';
+import '../../Model/user_data_model.dart';
 import '../../Network/API.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -59,16 +60,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               "Sem: ${userData.classDetails?.semester}  Class: ${userData.classDetails?.className} - ${userData.classDetails?.batch?.toUpperCase()}",
               CachedNetworkImage(
                 imageUrl: studentImageAPI(userData.studentDetails!.grNo),
-                placeholder: (context, url) =>  Icon(
-                  Icons.person,
-                  size: 50,
-                  color: Colors.black45,
-                ),
-                errorWidget: (context, url,error) =>  Icon(
-                  Icons.person,
-                  size: 50,
-                  color: Colors.black87,
-                ),
+                placeholder: (context, url) =>  HugeIcon(icon: HugeIcons.strokeRoundedUser, size: 30,color: Colors.black,),
+                errorWidget: (context, url, error) => HugeIcon(icon: HugeIcons.strokeRoundedUser, size: 30,color: Colors.black,),
                 fit: BoxFit.cover,
               ),
               true,
@@ -91,15 +84,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   childAspectRatio: 0.85,
                   padding: EdgeInsets.all(10),
                   children: [
-                    TapIcons(context,"Attendance", 2, "attendance.png", 45,"/attendance",{'student_id': userData.studentDetails?.studentId}),
-                    TapIcons(context,"Placement", 2, "placement.png", 45,"/placement",null),
-                    TapIcons(context,"Leaves", 2, "leaves.png", 45, "/placement",null),
-                    TapIcons(context,"Result", 2, "result.png", 45, "/placement",null),
-                    TapIcons(context,"Exams", 2, "exam.png", 45, "/placement",null),
-                    TapIcons(context,"Holidays", 2, "holiday.png", 45, "/placement",null),
-                    TapIcons(context,"Timetable", 2, "timetable.png", 45, "/placement",null),
-                    TapIcons(context,"Faculties", 2, "faculty.png", 45, "/placement",null),
-                    TapIcons(context,"Noticeboard", 2, "noticeboard.png", 45, "/placement",null),
+                    TapIcons(context,"Attendance", 2, HugeIcons.strokeRoundedDocumentValidation, 40,"/attendance",{'student_id': userData.studentDetails?.studentId}),
+                    TapIcons(context,"Faculty Contact", 2, HugeIcons.strokeRoundedContact01, 40,"/faculty_contact",{'student_id': userData.studentDetails?.studentId}),
+                    // TapIcons(context,"Placement", 2, "placement.png", 45,"/placement",null),
+                    // TapIcons(context,"Leaves", 2, "leaves.png", 45, "/placement",null),
+                    // TapIcons(context,"Result", 2, "result.png", 45, "/placement",null),
+                    // TapIcons(context,"Exams", 2, "exam.png", 45, "/placement",null),
+                    // TapIcons(context,"Holidays", 2, "holiday.png", 45, "/placement",null),
+                    // TapIcons(context,"Timetable", 2, "timetable.png", 45, "/placement",null),
+                    // TapIcons(context,"Faculties", 2, "faculty.png", 45, "/placement",null),
+                    // TapIcons(context,"Noticeboard", 2, "noticeboard.png", 45, "/placement",null),
                   ],
                 ),
               ),

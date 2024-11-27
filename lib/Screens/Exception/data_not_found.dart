@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../Helper/Colors.dart';
+import '../../Helper/colors.dart';
 import '../../Helper/Components.dart';
-import '../../Helper/ImagesPath.dart';
+import '../../Helper/images_path.dart';
 
 class DataNotFound extends StatelessWidget {
   const DataNotFound({super.key});

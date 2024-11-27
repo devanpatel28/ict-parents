@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import '../Model/UserDataModel.dart';
+import '../Model/user_data_model.dart';
 import '../Network/API.dart';
 
 class LoginController extends GetxController {

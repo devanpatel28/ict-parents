@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ict_mu_parents/Helper/Colors.dart';
+import 'package:ict_mu_parents/Helper/colors.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:http/http.dart' as http;
-import '../Model/AttendanceByDateModel.dart';
-import '../Model/TotalAttendanceModel.dart';
+import '../Model/attendance_by_date_model.dart';
+import '../Model/total_attendance_model.dart';
 import '../Network/API.dart';
 
 class AttendanceShowController extends GetxController with GetSingleTickerProviderStateMixin {
@@ -29,8 +29,6 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
         ? ((totalPresent.value + totalExtra.value) / totalAttendance.value) * 100.0
         : 0.0;
   }
-
-
 
   String formattedDate = DateFormat('dd MMM yyyy').format(DateTime.now());
   Rx<AnimationController>? animationController; // Make it reactive

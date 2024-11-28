@@ -7,7 +7,9 @@ import 'package:ict_mu_parents/Bindings/attendance_show_binding.dart';
 import 'package:ict_mu_parents/Bindings/faculty_contact_binding.dart';
 import 'package:ict_mu_parents/Screens/Authentication/forgot_password.dart';
 import 'package:ict_mu_parents/Screens/Splash/main_splash.dart';
+import 'package:ict_mu_parents/Screens/Timetable/timetable.dart';
 import 'Bindings/change_password_binding.dart';
+import 'Bindings/timetable_binding.dart';
 import 'Helper/colors.dart';
 import 'Screens/Attendance/attendance_show.dart';
 import 'Screens/Authentication/change_password.dart';
@@ -91,6 +93,11 @@ class MyApp extends StatelessWidget {
             transition: Transition.fadeIn,
             binding: ChangePasswordBinding(),
             page: () => const ChangePasswordScreen()),
+        GetPage(
+            name: "/studentTimetable",
+            transition: Transition.fadeIn,
+            binding: TimetableBinding(),
+            page: () => const TimetableScreen()),
       ],
       initialRoute:"/splashscreen",
     );

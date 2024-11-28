@@ -27,26 +27,27 @@ class FacultyContactScreen extends GetView<FacultyContactController> {
           ),
         ),
         body: Obx(
-          ()=> controller.isLoadingFacultyContact.value
+          () => controller.isLoadingFacultyContact.value
               ? const AdaptiveLoadingScreen()
               : AdaptiveRefreshIndicator(
-                onRefresh: ()=>controller.fetchFacultyContact(sid: controller.studentId),
-                child: controller.facultyContactList.isNotEmpty
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: controller.facultyContactList.length,
-                        itemBuilder: (context, index) {
-                          FacultyContactModel faculty =
-                              controller.facultyContactList[index];
-                          return FacultyContactCard(
-                              subjectShortName: faculty.subjectShortName,
-                              subjectName: faculty.subjectName,
-                              facultyName: faculty.facultyName,
-                              mobileNo: faculty.mobileNo);
-                        },
-                      )
-                    : const DataNotFound(),
-              ),
+                  onRefresh: () =>
+                      controller.fetchFacultyContact(sid: controller.studentId),
+                  child: controller.facultyContactList.isNotEmpty
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: controller.facultyContactList.length,
+                          itemBuilder: (context, index) {
+                            FacultyContactModel faculty =
+                                controller.facultyContactList[index];
+                            return FacultyContactCard(
+                                subjectShortName: faculty.subjectShortName,
+                                subjectName: faculty.subjectName,
+                                facultyName: faculty.facultyName,
+                                mobileNo: faculty.mobileNo);
+                          },
+                        )
+                      : const DataNotFound(),
+                ),
         ));
   }
 }

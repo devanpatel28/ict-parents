@@ -56,8 +56,7 @@ class FacultyContactController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        "Failed to get contacts",
-        e.toString(),
+        "Error","Failed to get contacts",
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

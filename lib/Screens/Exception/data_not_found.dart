@@ -10,7 +10,7 @@ class DataNotFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         children: <Widget>[
           Container(
             color: backgroundColor,
@@ -24,13 +24,11 @@ class DataNotFound extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Opacity(
-                          opacity: 0.5,
-                          child: Image.asset(
-                            NoDataAvailabeIMG,
-                            height: 150,
-                          ),
+                      Opacity(
+                        opacity: 0.5,
+                        child: Image.asset(
+                          NoDataAvailabeIMG,
+                          height: 150,
                         ),
                       ),
                       Padding(

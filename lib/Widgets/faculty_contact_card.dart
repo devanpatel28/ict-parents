@@ -84,7 +84,7 @@ class FacultyContactCard extends StatelessWidget {
                     child: TextButton(
                       onPressed: () async {
                         if (mobileNo.isNotEmpty) {
-                          Uri whatsappUrl = Uri.parse("https://wa.me/$mobileNo");
+                          Uri whatsappUrl = Uri.parse("https://wa.me/+91$mobileNo");
                           await launchUrl(whatsappUrl);
                         } else {
                           _showErrorSnackbar("Error", "Mobile number is empty");

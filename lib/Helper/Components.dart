@@ -182,24 +182,22 @@ Widget TapIcons(
             ),
           ),
         ),
-        SizedBox(height: getHeight(context, 0.005),),
+        SizedBox(height: getHeight(context, 0.01),),
         SizedBox(
             height:getHeight(context, 0.05),
             width: getWidth(context, 0.25),
-            child: Center(
-              child: Text(
-                name,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontFamily: 'mu_reg',
-                    color: muColor,
-                    height: 1,
-                    fontSize: getSize(context, nameSize)
-                ),
-                // softWrap: true,
-                textAlign: TextAlign.center,
+            child: Text(
+              name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontFamily: 'mu_reg',
+                  color: muColor,
+                  height: 1,
+                  fontSize: getSize(context, nameSize)
               ),
+              // softWrap: true,
+              textAlign: TextAlign.center,
             )
         )
       ],
@@ -250,33 +248,6 @@ RadialIndicator(BuildContext context, double input) {
   );
 }
 
-Heading1(context, String str, double size, double leftPad) {
-  return Padding(
-    padding: EdgeInsets.only(top: 8.0, bottom: 4, left: leftPad),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Container(
-            height: getSize(context, size * 1.5),
-            width: getSize(context, size * 0.35),
-            decoration: BoxDecoration(
-                color: muColor, borderRadius: BorderRadius.circular(500)),
-          ),
-        ),
-        Text(str,
-          style: TextStyle(
-            fontFamily: "mu_bold",
-            fontSize: getSize(context, size),
-            letterSpacing: 0.1,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
 AttendanceCard(
     context,
     String subName,
@@ -291,7 +262,7 @@ AttendanceCard(
       decoration: BoxDecoration(
           color: muGrey,
           borderRadius: BorderRadius.circular(getSize(context, 1.5)),
-          border: Border.all(color: Colors.black.withOpacity(0.1))),
+      ),
       child: Card(
         color: Colors.transparent,
         elevation: null,
@@ -301,7 +272,7 @@ AttendanceCard(
             style: TextStyle(
               letterSpacing: 0,
               fontSize: getSize(context, 2.4),
-              fontFamily: 'mu_bold',
+              fontWeight: FontWeight.bold,
             ),
           ),
           subtitle: Column(
@@ -314,11 +285,7 @@ AttendanceCard(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 5),
-                    child: Icon(
-                      Icons.access_time_outlined,
-                      color: Colors.black.withOpacity(0.25),
-                      size: getSize(context, 3),
-                    ),
+                    child: HugeIcon(icon: HugeIcons.strokeRoundedClock01, color: Colors.grey,size: getSize(context, 2.5),)
                   ),
                   Text(
                       "${startTime} ${int.parse(startTime.substring(0, 1)) < 12 ? "AM" : "PM"} "
@@ -336,11 +303,7 @@ AttendanceCard(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 5),
-                    child: Icon(
-                      Icons.person_outlined,
-                      color: Colors.black.withOpacity(0.25),
-                      size: getSize(context, 3),
-                    ),
+                    child: HugeIcon(icon: HugeIcons.strokeRoundedUser, color: Colors.grey,size: getSize(context, 2.5),)
                   ),
                   Text("${facName}",
                       style: TextStyle(

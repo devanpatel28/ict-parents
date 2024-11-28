@@ -6,6 +6,7 @@ import 'package:ict_mu_parents/Model/attendance_by_date_model.dart';
 import 'package:ict_mu_parents/Helper/colors.dart';
 import 'package:ict_mu_parents/Helper/Style.dart';
 import 'package:ict_mu_parents/Widgets/adaptive_refresh_indicator.dart';
+import '../../Widgets/heading_1.dart';
 import '../Loading/adaptive_loading_screen.dart';
 
 class StudentAttendanceScreen extends GetView<AttendanceShowController> {
@@ -133,8 +134,8 @@ class StudentAttendanceScreen extends GetView<AttendanceShowController> {
                       // Inside the build method, after your existing content
                       Column(
                         children: [
-                          Heading1(context,
-                              "Today's Attendance  -  ( ${controller.formattedDate} )", 2.5, 8),
+                          Heading1(
+                              text: "Today's Attendance  -  ( ${controller.formattedDate} )", fontSize: 2.5,leftPadding: 8),
                           controller.todayAttendanceList.isNotEmpty
                               ? ListView.builder(
                             shrinkWrap: true,
@@ -168,7 +169,7 @@ class StudentAttendanceScreen extends GetView<AttendanceShowController> {
                         padding: EdgeInsets.all(3.0),
                         child: Divider(),
                       ),
-                      Heading1(context, "Attendance Report", 2.5, 8),
+                      Heading1(text: "Attendance Report",fontSize: 2.5, leftPadding: 8),
                       controller.attendanceList.isNotEmpty
                           ? Center(
                         child: Padding(

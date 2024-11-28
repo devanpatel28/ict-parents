@@ -34,7 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Dashboard", style: TextStyle(color: Colors.black, fontFamily: "mu_reg", fontSize: 23)),
+        title: const Text("Dashboard", style: TextStyle(color: Colors.black, fontFamily: "mu_reg", fontSize: 23)),
         centerTitle: true,
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -49,15 +49,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
               "Sem: ${userData.classDetails?.semester}  Class: ${userData.classDetails?.className} - ${userData.classDetails?.batch?.toUpperCase()}",
               CachedNetworkImage(
                 imageUrl: studentImageAPI(userData.studentDetails!.grNo),
-                placeholder: (context, url) =>  HugeIcon(icon: HugeIcons.strokeRoundedUser, size: 30,color: Colors.black,),
-                errorWidget: (context, url, error) => HugeIcon(icon: HugeIcons.strokeRoundedUser, size: 30,color: Colors.black,),
+                placeholder: (context, url) =>  const HugeIcon(icon: HugeIcons.strokeRoundedUser, size: 30,color: Colors.black,),
+                errorWidget: (context, url, error) => const HugeIcon(icon: HugeIcons.strokeRoundedUser, size: 30,color: Colors.black,),
                 fit: BoxFit.cover,
               ),
                 true,
                 '/profile',
                 userData
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Container(
@@ -69,27 +69,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 child: GridView.count(
                   shrinkWrap: true,  // Ensures the GridView takes only as much space as it needs
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 0,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 0.85,
-                  padding: EdgeInsets.all(10),
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 0.85,
+                  padding: const EdgeInsets.all(10),
                   children: [
                     TapIcons(context,"Attendance", 2, HugeIcons.strokeRoundedDocumentValidation, 40,"/attendance",{'student_id': userData.studentDetails?.studentId}),
                     TapIcons(context,"Faculty Contact", 2, HugeIcons.strokeRoundedContact01, 40,"/faculty_contact",{'student_id': userData.studentDetails?.studentId}),
-                    // TapIcons(context,"Placement", 2, "placement.png", 45,"/placement",null),
-                    // TapIcons(context,"Leaves", 2, "leaves.png", 45, "/placement",null),
-                    // TapIcons(context,"Result", 2, "result.png", 45, "/placement",null),
-                    // TapIcons(context,"Exams", 2, "exam.png", 45, "/placement",null),
-                    // TapIcons(context,"Holidays", 2, "holiday.png", 45, "/placement",null),
-                    // TapIcons(context,"Timetable", 2, "timetable.png", 45, "/placement",null),
-                    // TapIcons(context,"Faculties", 2, "faculty.png", 45, "/placement",null),
-                    // TapIcons(context,"Noticeboard", 2, "noticeboard.png", 45, "/placement",null),
+                    TapIcons(context,"Timetable", 2, HugeIcons.strokeRoundedCalendar02, 40,"/studentTimetable",{'student_id': userData.studentDetails?.studentId}),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             BlackTag(
               context,
               Dark1,

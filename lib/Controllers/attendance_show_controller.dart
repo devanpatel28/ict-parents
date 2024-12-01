@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ict_mu_parents/Helper/colors.dart';
@@ -10,7 +9,8 @@ import '../Model/attendance_by_date_model.dart';
 import '../Model/total_attendance_model.dart';
 import '../Network/API.dart';
 
-class AttendanceShowController extends GetxController with GetSingleTickerProviderStateMixin {
+class AttendanceShowController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   RxList<TotalAttendance> attendanceList = <TotalAttendance>[].obs;
   RxList<AttendanceByDate> todayAttendanceList = <AttendanceByDate>[].obs;
   RxBool isLoadingAttendanceShow = true.obs;
@@ -26,7 +26,8 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
 
   double get avgAttendance {
     return totalAttendance.value > 0.0
-        ? ((totalPresent.value + totalExtra.value) / totalAttendance.value) * 100.0
+        ? ((totalPresent.value + totalExtra.value) / totalAttendance.value) *
+            100.0
         : 0.0;
   }
 
@@ -45,7 +46,6 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
     ).obs;
     animationController!.value.repeat(reverse: true);
     isLoadingAttendanceShow.value = false;
-
   }
 
   @override
@@ -65,25 +65,27 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
     }
 
     List<TableRow> rows = [];
-    totalLecL.value =0;
-    attendLecL.value =0;
-    totalLecT.value =0;
-    attendLecT.value =0;
+    totalLecL.value = 0;
+    attendLecL.value = 0;
+    totalLecT.value = 0;
+    attendLecT.value = 0;
 
     groupedAttendance.forEach((subject, attendances) {
       for (int i = 0; i < attendances.length; i++) {
         var attendance = attendances[i];
-        if (attendance.lec_type == 'L') {
+        if (attendance.lecType == 'L') {
           totalLecL.value += attendance.totalLec;
           attendLecL.value += attendance.attendLec;
-        } else if (attendance.lec_type == 'T') {
-         totalLecT.value += attendance.totalLec;
-         attendLecT.value += attendance.attendLec;
+        } else if (attendance.lecType == 'T') {
+          totalLecT.value += attendance.totalLec;
+          attendLecT.value += attendance.attendLec;
         }
 
         double percentage = 0.0;
         if (attendance.totalLec != 0) {
-          percentage = ((attendance.attendLec+attendance.extraLec) / attendance.totalLec) * 100;
+          percentage = ((attendance.attendLec + attendance.extraLec) /
+                  attendance.totalLec) *
+              100;
         }
 
         rows.add(
@@ -92,39 +94,40 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
               // Merge subjectShortName cells if subject is same as the previous row
               i == 0
                   ? Tooltip(
-                preferBelow: false,
-                message: attendance.subjectName,
-                child: TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.middle,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        attendance.subjectShortName,
-                        style: TextStyle(
-                          fontFamily: 'mu_bold',
-                          fontSize: getSize(Get.context!, 2),
+                      preferBelow: false,
+                      message: attendance.subjectName,
+                      child: TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              attendance.subjectShortName,
+                              style: TextStyle(
+                                fontFamily: 'mu_bold',
+                                fontSize: getSize(Get.context!, 2),
+                              ),
+                              overflow: TextOverflow.fade,
+                            ),
+                          ),
                         ),
-                        overflow: TextOverflow.fade,
                       ),
-                    ),
-                  ),
-                ),
-              )
+                    )
                   : TableCell(
-                verticalAlignment: TableCellVerticalAlignment.middle,
-                child:
-                Container(), // Empty cell to visually merge the rows
-              ),
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child:
+                          Container(), // Empty cell to visually merge the rows
+                    ),
               // Lec type
               TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Center(
                   child: Text(
-                    attendance.lec_type,
+                    attendance.lecType,
                     style: TextStyle(
-                        fontFamily: 'mu_reg', fontSize: getSize(Get.context!, 2)),
+                        fontFamily: 'mu_reg',
+                        fontSize: getSize(Get.context!, 2)),
                   ),
                 ),
               ),
@@ -157,7 +160,9 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Center(
                   child: Text(
-                    attendance.extraLec>-1?attendance.extraLec.toString():"",
+                    attendance.extraLec > -1
+                        ? attendance.extraLec.toString()
+                        : "",
                     style: TextStyle(
                         fontFamily: 'mu_reg',
                         fontSize: getSize(Get.context!, 2.5)),
@@ -172,7 +177,7 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
                     percentage == 0.0
                         ? "0" // Display 0 instead of NaN
                         : percentage.toStringAsFixed(
-                        0), // Remove decimals if it's a whole number
+                            0), // Remove decimals if it's a whole number
                     style: TextStyle(
                         fontFamily: 'mu_reg',
                         fontSize: getSize(Get.context!, 2.5)),
@@ -182,18 +187,18 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
             ],
             decoration: BoxDecoration(
               border: i > 0 &&
-                  attendances[i - 1].subjectShortName ==
-                      attendance.subjectShortName
+                      attendances[i - 1].subjectShortName ==
+                          attendance.subjectShortName
                   ? const Border(
-                // Remove border between same subject rows
-                top: BorderSide.none,
-                bottom: BorderSide.none,
-                left: BorderSide.none,
-                right: BorderSide.none,
-              )
+                      // Remove border between same subject rows
+                      top: BorderSide.none,
+                      bottom: BorderSide.none,
+                      left: BorderSide.none,
+                      right: BorderSide.none,
+                    )
                   : const Border(
-                top: BorderSide(),
-              ),
+                      top: BorderSide(),
+                    ),
             ),
           ),
         );
@@ -251,14 +256,14 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
           ),
           TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Container()
-          ),
+              child: Container()),
           TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Center(
               child: Text(
                 totalLecL.value != 0
-                    ? ((attendLecL.value / totalLecL.value) * 100).toStringAsFixed(0)
+                    ? ((attendLecL.value / totalLecL.value) * 100)
+                        .toStringAsFixed(0)
                     : "0", // Avoid division by zero
                 style: TextStyle(
                     fontFamily: 'mu_reg', fontSize: getSize(Get.context!, 2.5)),
@@ -273,8 +278,7 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
         children: [
           TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Container()
-          ),
+              child: Container()),
           TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Center(
@@ -307,14 +311,14 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
           ),
           TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Container()
-          ),
+              child: Container()),
           TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Center(
               child: Text(
                 totalLecT.value != 0
-                    ? ((attendLecT.value / totalLecT.value) * 100).toStringAsFixed(0)
+                    ? ((attendLecT.value / totalLecT.value) * 100)
+                        .toStringAsFixed(0)
                     : "0", // Avoid division by zero
                 style: TextStyle(
                     fontFamily: 'mu_reg', fontSize: getSize(Get.context!, 2.5)),
@@ -356,7 +360,8 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
                 child: Text(
                   totalAttendance.value.toStringAsFixed(0),
                   style: TextStyle(
-                      fontFamily: 'mu_bold', fontSize: getSize(Get.context!, 2.5)),
+                      fontFamily: 'mu_bold',
+                      fontSize: getSize(Get.context!, 2.5)),
                 ),
               ),
             ),
@@ -369,7 +374,8 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
                 child: Text(
                   totalPresent.value.toStringAsFixed(0),
                   style: TextStyle(
-                      fontFamily: 'mu_bold', fontSize: getSize(Get.context!, 2.5)),
+                      fontFamily: 'mu_bold',
+                      fontSize: getSize(Get.context!, 2.5)),
                 ),
               ),
             ),
@@ -382,7 +388,8 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
                 child: Text(
                   totalExtra.value.toStringAsFixed(0),
                   style: TextStyle(
-                      fontFamily: 'mu_bold', fontSize: getSize(Get.context!, 2.5)),
+                      fontFamily: 'mu_bold',
+                      fontSize: getSize(Get.context!, 2.5)),
                 ),
               ),
             ),
@@ -394,13 +401,12 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
               child: Padding(
                 padding: EdgeInsets.all(getSize(Get.context!, 0.6)),
                 child: Center(
-                  child: Text("${totalAttendance.value != 0
-                      ? (((totalPresent.value+totalExtra.value) / totalAttendance.value) * 100)
-                      .toStringAsFixed(0)
-                      : "0"}%", // Avoid division by zero
+                  child: Text(
+                    "${totalAttendance.value != 0 ? (((totalPresent.value + totalExtra.value) / totalAttendance.value) * 100).toStringAsFixed(0) : "0"}%", // Avoid division by zero
                     style: TextStyle(
-                        fontFamily: 'mu_bold',color: Colors.white
-                        , fontSize: getSize(Get.context!, 3)),
+                        fontFamily: 'mu_bold',
+                        color: Colors.white,
+                        fontSize: getSize(Get.context!, 3)),
                   ),
                 ),
               ),
@@ -412,21 +418,21 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
 
     return rows;
   }
-  
+
   Future<void> fetchAttendance() async {
     int studentId = Get.arguments['student_id'];
-    List<TotalAttendance>? fetchedAttendanceList = await totalAttendanceFetch(studentId);
+    List<TotalAttendance>? fetchedAttendanceList =
+        await totalAttendanceFetch(studentId);
     attendanceList.assignAll(fetchedAttendanceList);
     await calculateAttendance();
   }
 
-  Future<void> calculateAttendance()
-  async {
-    totalExtra.value =0;
-    totalAttendance.value =0;
-    totalPresent.value =0;
+  Future<void> calculateAttendance() async {
+    totalExtra.value = 0;
+    totalAttendance.value = 0;
+    totalPresent.value = 0;
     for (var attendance in attendanceList) {
-      totalExtra.value += attendance.extraLec>-1?attendance.extraLec:0;
+      totalExtra.value += attendance.extraLec > -1 ? attendance.extraLec : 0;
       totalAttendance.value += attendance.totalLec;
       totalPresent.value += attendance.attendLec;
     }
@@ -435,7 +441,8 @@ class AttendanceShowController extends GetxController with GetSingleTickerProvid
   Future<void> fetchTodayAttendance() async {
     int studentId = Get.arguments['student_id'];
     String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    List<AttendanceByDate>? fetchedTodayAttendanceList = await attendanceByDate(studentId, todayDate);
+    List<AttendanceByDate>? fetchedTodayAttendanceList =
+        await attendanceByDate(studentId, todayDate);
     todayAttendanceList.assignAll(fetchedTodayAttendanceList);
   }
 

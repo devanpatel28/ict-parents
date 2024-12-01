@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Helper/colors.dart';
@@ -22,10 +20,10 @@ double getSize(context, double i) {
   return result;
 }
 
-Widget BlackTag(context, Color? color, String? Line1, String? Line2,
-    Widget? imageWidget, bool isReverse,String onTapPath,arg) {
+Widget blackTag(context, Color? color, String? line1, String? line2,
+    Widget? imageWidget, bool isReverse, String onTapPath, arg) {
   return InkWell(
-    onTap: ()=>Get.toNamed(onTapPath,arguments: arg),
+    onTap: () => Get.toNamed(onTapPath, arguments: arg),
     child: Container(
       alignment: Alignment.centerRight,
       child: Row(
@@ -38,7 +36,7 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                   width: 50,
                   decoration: BoxDecoration(
                     color: color ?? Colors.black,
-                    borderRadius: BorderRadius.horizontal(
+                    borderRadius: const BorderRadius.horizontal(
                       right: Radius.circular(500),
                     ),
                   ),
@@ -48,7 +46,7 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                   width: 300,
                   decoration: BoxDecoration(
                     color: color ?? Colors.black,
-                    borderRadius: BorderRadius.horizontal(
+                    borderRadius: const BorderRadius.horizontal(
                       left: Radius.circular(500),
                     ),
                   ),
@@ -61,7 +59,7 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                           height: 55,
                           width: 55,
                           clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: Colors.grey,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(500))),
@@ -77,13 +75,13 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                             SizedBox(
                               width: getWidth(context, 0.5),
                               child: Text(
-                                Line1 ?? "Loading...",
+                                line1 ?? "Loading...",
                                 overflow: TextOverflow.ellipsis,
                                 style: tagStyle(Colors.white, 18, true),
                               ),
                             ),
                             Text(
-                              Line2 ?? "Loading...",
+                              line2 ?? "Loading...",
                               overflow: TextOverflow.ellipsis,
                               style: tagStyle(Light2, 15, false),
                             ),
@@ -100,7 +98,7 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                   width: 300,
                   decoration: BoxDecoration(
                     color: color ?? Colors.black,
-                    borderRadius: BorderRadius.horizontal(
+                    borderRadius: const BorderRadius.horizontal(
                       right: Radius.circular(500),
                     ),
                   ),
@@ -115,13 +113,13 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                           children: [
                             SizedBox(
                               child: Text(
-                                Line1 ?? "Loading...",
+                                line1 ?? "Loading...",
                                 overflow: TextOverflow.ellipsis,
                                 style: tagStyle(Colors.white, 18, true),
                               ),
                             ),
                             Text(
-                              Line2 ?? "Loading...",
+                              line2 ?? "Loading...",
                               overflow: TextOverflow.ellipsis,
                               style: tagStyle(Light2, 15, false),
                             ),
@@ -143,7 +141,7 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
                   width: 50,
                   decoration: BoxDecoration(
                     color: color ?? Colors.black,
-                    borderRadius: BorderRadius.horizontal(
+                    borderRadius: const BorderRadius.horizontal(
                       left: Radius.circular(500),
                     ),
                   ),
@@ -154,15 +152,15 @@ Widget BlackTag(context, Color? color, String? Line1, String? Line2,
   );
 }
 
-Widget TapIcons(
-    context,
-    String name,
-    double nameSize,
-    IconData iconData,
-    double iconSize,
-    String route,
-    routeArg,
-    ) {
+Widget tapIcons(
+  context,
+  String name,
+  double nameSize,
+  IconData iconData,
+  double iconSize,
+  String route,
+  routeArg,
+) {
   return InkWell(
     onTap: () => Get.toNamed(route, arguments: routeArg),
     child: Column(
@@ -182,9 +180,11 @@ Widget TapIcons(
             ),
           ),
         ),
-        SizedBox(height: getHeight(context, 0.01),),
         SizedBox(
-            height:getHeight(context, 0.05),
+          height: getHeight(context, 0.01),
+        ),
+        SizedBox(
+            height: getHeight(context, 0.05),
             width: getWidth(context, 0.25),
             child: Text(
               name,
@@ -194,24 +194,22 @@ Widget TapIcons(
                   fontFamily: 'mu_reg',
                   color: muColor,
                   height: 1,
-                  fontSize: getSize(context, nameSize)
-              ),
+                  fontSize: getSize(context, nameSize)),
               // softWrap: true,
               textAlign: TextAlign.center,
-            )
-        )
+            ))
       ],
     ),
   );
 }
 
-RadialIndicator(BuildContext context, double input) {
+radialIndicator(BuildContext context, double input) {
   return Stack(
     alignment: Alignment.center,
     children: [
       TweenAnimationBuilder(
         tween: Tween<double>(begin: 0, end: input),
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         curve: Easing.linear,
         builder: (context, value, child) {
           return Center(
@@ -229,10 +227,10 @@ RadialIndicator(BuildContext context, double input) {
       ),
       TweenAnimationBuilder(
         tween: Tween<double>(begin: 0, end: input / 100),
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         curve: Easing.linear,
         builder: (context, value, child) {
-          return Container(
+          return SizedBox(
             width: 70,
             height: 70,
             child: CircularProgressIndicator(
@@ -248,27 +246,22 @@ RadialIndicator(BuildContext context, double input) {
   );
 }
 
-AttendanceCard(
-    context,
-    String subName,
-    String facName,
-    String startTime,
-    String endTime,
-    String status,
-    String lecType) {
+attendanceCard(context, String subName, String facName, String startTime,
+    String endTime, String status, String lecType) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Container(
       decoration: BoxDecoration(
-          color: muGrey,
-          borderRadius: BorderRadius.circular(getSize(context, 1.5)),
+        color: muGrey,
+        borderRadius: BorderRadius.circular(getSize(context, 1.5)),
       ),
       child: Card(
         color: Colors.transparent,
         elevation: null,
         shadowColor: Colors.transparent,
         child: ListTile(
-          title: Text("$subName  ( $lecType )",
+          title: Text(
+            "$subName  ( $lecType )",
             style: TextStyle(
               letterSpacing: 0,
               fontSize: getSize(context, 2.4),
@@ -278,19 +271,22 @@ AttendanceCard(
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Divider(),
+              const Divider(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: HugeIcon(icon: HugeIcons.strokeRoundedClock01, color: Colors.grey,size: getSize(context, 2.5),)
-                  ),
+                      padding: const EdgeInsets.only(right: 5),
+                      child: HugeIcon(
+                        icon: HugeIcons.strokeRoundedClock01,
+                        color: Colors.grey,
+                        size: getSize(context, 2.5),
+                      )),
                   Text(
-                      "${startTime} ${int.parse(startTime.substring(0, 1)) < 12 ? "AM" : "PM"} "
+                      "$startTime ${int.parse(startTime.substring(0, 1)) < 12 ? "AM" : "PM"} "
                       "to "
-                      "${endTime} ${int.parse(endTime.substring(0, 1)) < 12 ? "AM" : "PM"} ",
+                      "$endTime ${int.parse(endTime.substring(0, 1)) < 12 ? "AM" : "PM"} ",
                       style: TextStyle(
                         fontSize: getSize(context, 1.8),
                         fontFamily: 'mu_reg',
@@ -302,10 +298,13 @@ AttendanceCard(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: HugeIcon(icon: HugeIcons.strokeRoundedUser, color: Colors.grey,size: getSize(context, 2.5),)
-                  ),
-                  Text("${facName}",
+                      padding: const EdgeInsets.only(right: 5),
+                      child: HugeIcon(
+                        icon: HugeIcons.strokeRoundedUser,
+                        color: Colors.grey,
+                        size: getSize(context, 2.5),
+                      )),
+                  Text(facName,
                       style: TextStyle(
                         fontSize: getSize(context, 1.8),
                         fontFamily: 'mu_reg',

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +38,10 @@ class SplashController extends GetxController {
       await controller.checkConnection();
       if (!controller.isConnected.value) {
         // print("No Internet");
-        Utils().showInternetAlert(context: Get.context!, onConfirm: checkVersion);
+        Utils()
+            .showInternetAlert(context: Get.context!, onConfirm: checkVersion);
       } else {
-        Map<String, String> body = {'login': 'parent', 'code': CurrentVersion};
+        Map<String, String> body = {'login': 'parent', 'code': currentVersion};
         final response = await http.post(
           Uri.parse(validateVersionAPI),
           headers: {

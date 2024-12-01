@@ -9,7 +9,8 @@ class Heading1 extends StatelessWidget {
   final double fontSize;
   final double leftPadding;
 
-  Heading1({
+  const Heading1({
+    super.key,
     required this.text,
     required this.fontSize,
     required this.leftPadding,

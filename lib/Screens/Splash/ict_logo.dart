@@ -3,6 +3,7 @@ import 'package:ict_mu_parents/Helper/Components.dart';
 
 import '../../Helper/colors.dart';
 import '../../Helper/images_path.dart';
+
 class IctLogo extends StatelessWidget {
   const IctLogo({super.key});
 
@@ -14,17 +15,24 @@ class IctLogo extends StatelessWidget {
       child: Stack(
         children: [
           Image.asset(
-            ICTLogo,
+            ictLogo,
             scale: 1.5,
           ),
           Positioned(
               left: getSize(context, 8.5),
               top: getSize(context, 4),
-              child: Text("Information &",style: TextStyle(fontWeight: FontWeight.bold, fontSize: getSize(context, 3)))),
+              child: Text("Information &",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: getSize(context, 3)))),
           Positioned(
               left: getSize(context, 9),
               top: getSize(context, 7),
-              child: Text("Communication Technology",style: TextStyle(color: muColor,fontWeight: FontWeight.bold, fontSize: getSize(context, 2.5)))),
+              child: Text("Communication Technology",
+                  style: TextStyle(
+                      color: muColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: getSize(context, 2.5)))),
         ],
       ),
     );

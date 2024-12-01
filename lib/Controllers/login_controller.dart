@@ -10,10 +10,7 @@ class LoginController extends GetxController {
 
   Future<bool> login(String username, String password) async {
     try {
-      Map<String, String> body = {
-        'username': username,
-        'password': password
-      };
+      Map<String, String> body = {'username': username, 'password': password};
       final response = await http.post(
         Uri.parse(validateLoginAPI),
         headers: {
@@ -36,7 +33,6 @@ class LoginController extends GetxController {
         return false;
       }
     } catch (e) {
-      print('Error: $e');
       return false;
     }
   }

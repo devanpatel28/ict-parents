@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Model/user_data_model.dart';
-import 'package:ict_mu_parents/Widgets/titled_container.dart';
 import '../../Helper/Colors.dart';
 import '../../Helper/Components.dart';
 import '../../Helper/images_path.dart';
@@ -35,7 +34,8 @@ class _ProfilePageState extends State<ProfilePage> {
         cancelButtonText: "No",
         onConfirm: () async {
           final box = GetStorage();
-          await CachedNetworkImage.evictFromCache(studentImageAPI(userData.studentDetails!.studentId));
+          await CachedNetworkImage.evictFromCache(
+              studentImageAPI(userData.studentDetails!.studentId));
           await box.write('loggedin', false);
           await box.write('userdata', null);
           Get.offNamed('/login');
@@ -90,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         borderRadius: BorderRadius.circular(borderRad),
                         color: Colors.white,
                         image: DecorationImage(
-                            image: AssetImage(MuMainBuilding),
+                            image: AssetImage(muMainBuilding),
                             opacity: 0.3,
                             fit: BoxFit.cover)),
                     child: Center(
@@ -106,7 +106,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 strokeAlign: BorderSide.strokeAlignOutside)),
                         clipBehavior: Clip.hardEdge,
                         child: CachedNetworkImage(
-                          imageUrl: studentImageAPI(userData.studentDetails!.grNo),
+                          imageUrl:
+                              studentImageAPI(userData.studentDetails!.grNo),
                           placeholder: (context, url) => HugeIcon(
                             icon: HugeIcons.strokeRoundedUser,
                             color: muColor,
@@ -125,8 +126,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 10,
                 ),
                 DetailWithHeading(
-                    HeadingName: "Student Name",
-                    Details: "${userData.studentDetails!.firstName} ${userData.studentDetails!.lastName}"),
+                    headingName: "Student Name",
+                    details:
+                        "${userData.studentDetails!.firstName} ${userData.studentDetails!.lastName}"),
                 const SizedBox(
                   height: 10,
                 ),
@@ -134,17 +136,18 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Flexible(
                       child: DetailWithHeading(
-                          HeadingName: "Sem-Class-Batch",
-                          Details: "${userData.classDetails!.semester} - ${userData.classDetails!.className} - ${userData.classDetails!.batch!.toUpperCase()}"
-                      ),
+                          headingName: "Sem-Class-Batch",
+                          details:
+                              "${userData.classDetails!.semester} - ${userData.classDetails!.className} - ${userData.classDetails!.batch!.toUpperCase()}"),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
                     Flexible(
                       child: DetailWithHeading(
-                          HeadingName: "Academic Batch",
-                        Details: "${userData.studentDetails!.batchStartYear} - ${userData.studentDetails!.batchEndYear.toString().substring(2)}",
+                        headingName: "Academic Batch",
+                        details:
+                            "${userData.studentDetails!.batchStartYear} - ${userData.studentDetails!.batchEndYear.toString().substring(2)}",
                       ),
                     ),
                   ],
@@ -156,17 +159,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Flexible(
                       child: DetailWithHeading(
-                          HeadingName: "Enrollment No.",
-                          Details: userData.studentDetails!.enrollmentNo
-                      ),
+                          headingName: "Enrollment No.",
+                          details: userData.studentDetails!.enrollmentNo),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
                     Flexible(
                       child: DetailWithHeading(
-                          HeadingName: "GR No.",
-                        Details: userData.studentDetails!.grNo,
+                        headingName: "GR No.",
+                        details: userData.studentDetails!.grNo,
                       ),
                     ),
                   ],
@@ -175,52 +177,63 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 10,
                 ),
                 DetailWithHeading(
-                    HeadingName: "Student Mobile No.", Details: userData.studentDetails!.phone),
+                    headingName: "Student Mobile No.",
+                    details: userData.studentDetails!.phone),
                 const SizedBox(
                   height: 10,
                 ),
                 DetailWithHeading(
-                    HeadingName: "Student Institute Email Id", Details: userData.studentDetails!.email),
-            
-                Divider(height: 30,color: muGrey2,thickness: 2,indent: 15,endIndent: 15,),
-            
+                    headingName: "Student Institute Email Id",
+                    details: userData.studentDetails!.email),
+                Divider(
+                  height: 30,
+                  color: muGrey2,
+                  thickness: 2,
+                  indent: 15,
+                  endIndent: 15,
+                ),
                 DetailWithHeading(
-                    HeadingName: "Parent Name",
-                    Details: "${userData.parentDetails!.parentName} ${userData.studentDetails!.lastName}"),
+                    headingName: "Parent Name",
+                    details:
+                        "${userData.parentDetails!.parentName} ${userData.studentDetails!.lastName}"),
                 const SizedBox(
                   height: 10,
                 ),
                 DetailWithHeading(
-                    HeadingName: "Parent Occupation",
-                    Details: userData.parentDetails!.profession),
+                    headingName: "Parent Occupation",
+                    details: userData.parentDetails!.profession),
                 const SizedBox(
                   height: 10,
                 ),
                 DetailWithHeading(
-                    HeadingName: "Parent Mobile No.",
-                    Details: userData.parentDetails!.phone),
+                    headingName: "Parent Mobile No.",
+                    details: userData.parentDetails!.phone),
                 const SizedBox(
                   height: 10,
                 ),
                 DetailWithHeading(
-                    HeadingName: "Parent Email Id",
-                    Details: userData.parentDetails!.email),
+                    headingName: "Parent Email Id",
+                    details: userData.parentDetails!.email),
                 const SizedBox(
                   height: 10,
                 ),
-
                 const SizedBox(
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () => Get.toNamed("/changePassword",arguments: userData),
+                  onTap: () =>
+                      Get.toNamed("/changePassword", arguments: userData),
                   child: Container(
                     height: getHeight(context, 0.06),
                     decoration: BoxDecoration(
                         color: muGrey,
                         border: Border.all(color: muGrey2),
                         borderRadius: BorderRadius.circular(borderRad)),
-                    child: Center(child: Text("Change Password",style: TextStyle(color: muColor,fontSize: 20),)),
+                    child: Center(
+                        child: Text(
+                      "Change Password",
+                      style: TextStyle(color: muColor, fontSize: 20),
+                    )),
                   ),
                 ),
                 const SizedBox(

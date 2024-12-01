@@ -3,13 +3,13 @@ import '../Helper/Colors.dart';
 import '../Helper/size.dart';
 
 class DetailWithHeading extends StatelessWidget {
-  final String HeadingName;
-  final dynamic Details;
+  final String headingName;
+  final dynamic details;
 
   const DetailWithHeading({
     super.key,
-    required this.HeadingName,
-    required this.Details,
+    required this.headingName,
+    required this.details,
   });
 
   @override
@@ -42,7 +42,7 @@ class DetailWithHeading extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    HeadingName,
+                    headingName,
                     style: TextStyle(
                       color: muColor,
                       fontSize: 15,
@@ -50,8 +50,8 @@ class DetailWithHeading extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    Details.toString(),
-                    style: TextStyle(
+                    details.toString(),
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
                     ),

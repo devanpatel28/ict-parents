@@ -13,7 +13,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Change Password"),
+        title: const Text("Change Password"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_rounded, color: backgroundColor),
           onPressed: () {
@@ -24,9 +24,10 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
         child: SingleChildScrollView(
-            child:
-                Obx(
-                  ()=> controller.isLoadingUpdatePass.value?MuLoadingScreen():Column(
+          child: Obx(
+            () => controller.isLoadingUpdatePass.value
+                ? const MuLoadingScreen()
+                : Column(
                     children: [
                       TextField(
                         controller: controller.currentPass.value,
@@ -71,7 +72,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       TextField(
@@ -121,12 +122,14 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextField(
                         controller: controller.confirmNewPass.value,
-                        cursorColor: controller.isPasswordMatch.value ? muColor : Colors.red,
+                        cursorColor: controller.isPasswordMatch.value
+                            ? muColor
+                            : Colors.red,
                         obscureText: !controller.passShow.value,
                         onChanged: (value) {
                           controller.checkPasswordMatch();
@@ -135,17 +138,21 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                           labelText: 'Confirm New Password',
                           labelStyle: TextStyle(
                             fontFamily: "mu_reg",
-                            color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
+                            color: controller.isPasswordMatch.value
+                                ? muGrey2
+                                : Colors.red,
                           ),
                           hintText: 'Re-Enter New Password',
                           hintStyle: TextStyle(
                             fontFamily: "mu_reg",
-                            color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
+                            color: controller.isPasswordMatch.value
+                                ? muGrey2
+                                : Colors.red,
                           ),
                           suffixIcon: InkWell(
                             onTap: () {
                               controller.passShow.value =
-                              !controller.passShow.value;
+                                  !controller.passShow.value;
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(right: 10.0),
@@ -160,53 +167,71 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                           // Border changes based on whether passwords match
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
+                                color: controller.isPasswordMatch.value
+                                    ? muGrey2
+                                    : Colors.red,
                                 width: 1.5),
                             borderRadius: BorderRadius.circular(borderRad),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: controller.isPasswordMatch.value ? muGrey2 : Colors.red,
+                                color: controller.isPasswordMatch.value
+                                    ? muGrey2
+                                    : Colors.red,
                                 width: 1.5),
                             borderRadius: BorderRadius.circular(borderRad),
                           ),
                         ),
                         style: TextStyle(
-                          fontSize: getSize(context, 2.5),
-                          fontFamily: "mu_reg",
-                          fontWeight: FontWeight.w500,
-                          color: controller.isPasswordMatch.value ? Colors.black : Colors.red
-                        ),
+                            fontSize: getSize(context, 2.5),
+                            fontFamily: "mu_reg",
+                            fontWeight: FontWeight.w500,
+                            color: controller.isPasswordMatch.value
+                                ? Colors.black
+                                : Colors.red),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildValidationText("At least 8 characters", controller.isMinLength.value),
-                          _buildValidationText("At least one special character", controller.hasSpecialChar.value),
-                          _buildValidationText("At least one number", controller.hasNumber.value),
-                          _buildValidationText("At least one uppercase letter", controller.hasCapitalLetter.value),
+                          _buildValidationText("At least 8 characters",
+                              controller.isMinLength.value),
+                          _buildValidationText("At least one special character",
+                              controller.hasSpecialChar.value),
+                          _buildValidationText("At least one number",
+                              controller.hasNumber.value),
+                          _buildValidationText("At least one uppercase letter",
+                              controller.hasCapitalLetter.value),
                         ],
                       ),
                       SizedBox(height: getHeight(context, 0.3)),
-                      controller.isPasswordValid?InkWell(
-                        onTap: ()=>controller.updatePassword(controller.userData.studentDetails!.grNo.toString()),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Container(
-                            height: getHeight(context, 0.06),
-                            decoration: BoxDecoration(
-                                color: muGrey,
-                                border: Border.all(color: muGrey2),
-                                borderRadius: BorderRadius.circular(borderRad)),
-                            child: Center(child: Text("Change Password",style: TextStyle(color: muColor,fontSize: 20),)),
-                          ),
-                        ),
-                      ):Container()
+                      controller.isPasswordValid
+                          ? InkWell(
+                              onTap: () => controller.updatePassword(controller
+                                  .userData.studentDetails!.grNo
+                                  .toString()),
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Container(
+                                  height: getHeight(context, 0.06),
+                                  decoration: BoxDecoration(
+                                      color: muGrey,
+                                      border: Border.all(color: muGrey2),
+                                      borderRadius:
+                                          BorderRadius.circular(borderRad)),
+                                  child: Center(
+                                      child: Text(
+                                    "Change Password",
+                                    style:
+                                        TextStyle(color: muColor, fontSize: 20),
+                                  )),
+                                ),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
-                ),
-
+          ),
         ),
       ),
     );
@@ -222,26 +247,27 @@ Widget _buildValidationText(String text, bool isValid) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HugeIcon(
-              icon: isValid ? HugeIcons.strokeRoundedCheckmarkCircle01 : HugeIcons.strokeRoundedCancel01,
+              icon: isValid
+                  ? HugeIcons.strokeRoundedCheckmarkCircle01
+                  : HugeIcons.strokeRoundedCancel01,
               color: isValid ? Colors.green : Colors.red,
               size: 20,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             SizedBox(
               width: getWidth(Get.context!, 0.8),
               child: Text(
                 text,
                 style: TextStyle(
-                  fontSize: getSize(Get.context!, 2),
-                  color: isValid ? Colors.green : Colors.red,
-                  fontWeight: FontWeight.bold,
-                  overflow: TextOverflow.visible
-                ),
+                    fontSize: getSize(Get.context!, 2),
+                    color: isValid ? Colors.green : Colors.red,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.visible),
               ),
             ),
           ],
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
       ],
     ),
   );

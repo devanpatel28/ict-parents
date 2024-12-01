@@ -3,7 +3,6 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
 import 'package:ict_mu_parents/Helper/colors.dart';
 import 'package:ict_mu_parents/Helper/size.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 
 class TimetableCard extends StatelessWidget {
@@ -51,8 +50,8 @@ class TimetableCard extends StatelessWidget {
                           width: getWidth(context, 0.75),
                           child: Text(
                             "${startTime.substring(0, 5)} ${int.parse(startTime.substring(0, 1)) < 12 ? "AM" : "PM"} "
-                                " to "
-                                "${endTime.substring(0, 5)} ${int.parse(endTime.substring(0, 1)) < 12 ? "AM" : "PM"} ",
+                            " to "
+                            "${endTime.substring(0, 5)} ${int.parse(endTime.substring(0, 1)) < 12 ? "AM" : "PM"} ",
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -64,14 +63,18 @@ class TimetableCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const Divider(height: 15,thickness: 1.5,),
-              const SizedBox(height: 5,),
+              const Divider(
+                height: 15,
+                thickness: 1.5,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HugeIcon(
-                      icon: HugeIcons.strokeRoundedBook02, color: muColor),
+                  HugeIcon(icon: HugeIcons.strokeRoundedBook02, color: muColor),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: SizedBox(
@@ -87,20 +90,23 @@ class TimetableCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HugeIcon(icon: HugeIcons.strokeRoundedUserCircle, color: muColor),
+                  HugeIcon(
+                      icon: HugeIcons.strokeRoundedUserCircle, color: muColor),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: SizedBox(
                       width: getWidth(context, 0.75),
-                      child:Text(facultyName,
+                      child: Text(
+                        facultyName,
                         style: const TextStyle(
-                            fontSize: 16,
-                            overflow: TextOverflow.visible),
+                            fontSize: 16, overflow: TextOverflow.visible),
                       ),
                     ),
                   ),
@@ -113,7 +119,7 @@ class TimetableCard extends StatelessWidget {
     );
   }
 
-  void _showErrorSnackbar(String title, String message) {
+  void showErrorSnackbar(String title, String message) {
     Get.snackbar(
       title,
       message,

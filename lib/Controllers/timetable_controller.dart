@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ict_mu_parents/Model/timetable_model.dart';
@@ -55,5 +54,4 @@ class TimeTableController extends GetxController {
       isLoadingTimetable.value = false;
     }
   }
-
 }

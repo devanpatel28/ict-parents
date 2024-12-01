@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:ict_mu_parents/Bindings/attendance_show_binding.dart';
 import 'package:ict_mu_parents/Bindings/faculty_contact_binding.dart';
 import 'package:ict_mu_parents/Screens/Authentication/forgot_password.dart';
@@ -27,11 +25,11 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
-class MyApp extends StatelessWidget {
 
-  MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,47 +41,41 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: muColor,
           centerTitle: true,
-          titleTextStyle: TextStyle(fontFamily: "mu_reg",color: backgroundColor,fontSize: 20),
+          titleTextStyle: TextStyle(
+              fontFamily: "mu_reg", color: backgroundColor, fontSize: 20),
         ),
       ),
       getPages: [
         GetPage(
             name: "/splashscreen",
             transition: Transition.fadeIn,
-            page: () => SplashScreen()
-        ),
+            page: () => const SplashScreen()),
         GetPage(
             name: "/login",
             transition: Transition.fadeIn,
-            page: () => const LoginScreen()
-        ),
+            page: () => const LoginScreen()),
         GetPage(
             name: "/forgotPass",
             transition: Transition.fadeIn,
-            page: () => const ForgotPasswordScreen()
-        ),
+            page: () => const ForgotPasswordScreen()),
         GetPage(
             name: "/dashboard",
             transition: Transition.fadeIn,
-            page: () => const DashboardScreen()
-        ),
+            page: () => const DashboardScreen()),
         GetPage(
             name: "/placement",
             transition: Transition.fadeIn,
-            page: () => const PlacementScreen()
-        ),
+            page: () => const PlacementScreen()),
         GetPage(
             name: "/attendance",
             transition: Transition.fadeIn,
             binding: AttendanceShowBinding(),
-            page: () => const StudentAttendanceScreen()
-        ),
+            page: () => const StudentAttendanceScreen()),
         GetPage(
             name: "/faculty_contact",
             transition: Transition.fadeIn,
             binding: FacultyContactBinding(),
-            page: () => const FacultyContactScreen()
-        ),
+            page: () => const FacultyContactScreen()),
         GetPage(
             name: "/profile",
             transition: Transition.fadeIn,
@@ -99,7 +91,7 @@ class MyApp extends StatelessWidget {
             binding: TimetableBinding(),
             page: () => const TimetableScreen()),
       ],
-      initialRoute:"/splashscreen",
+      initialRoute: "/splashscreen",
     );
   }
 }

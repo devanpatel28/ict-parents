@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Controllers/login_controller.dart';
 import 'package:ict_mu_parents/Helper/colors.dart';
@@ -53,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: getWidth(context, 0.9),
                     child: Column(
                       children: [
-                        IctLogo(),
+                        const IctLogo(),
                         const SizedBox(height: 50),
                         TextField(
                           controller: username,
@@ -74,11 +73,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 icon: HugeIcons.strokeRoundedUserAccount,
                                 color: Colors.grey),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: muGrey2, width: 1.5),
+                              borderSide:
+                                  BorderSide(color: muGrey2, width: 1.5),
                               borderRadius: BorderRadius.circular(borderRad),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: muGrey2, width: 1.5),
+                              borderSide:
+                                  BorderSide(color: muGrey2, width: 1.5),
                               borderRadius: BorderRadius.circular(borderRad),
                             ),
                           ),
@@ -98,13 +99,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               HugeIcons.strokeRoundedKey01,
                               color: Colors.grey, // Change icon color
                             ),
-
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: muGrey2, width: 1.5),
+                              borderSide:
+                                  BorderSide(color: muGrey2, width: 1.5),
                               borderRadius: BorderRadius.circular(borderRad),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: muGrey2, width: 1.5),
+                              borderSide:
+                                  BorderSide(color: muGrey2, width: 1.5),
                               borderRadius: BorderRadius.circular(borderRad),
                             ),
                             suffixIcon: InkWell(
@@ -121,7 +123,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           : HugeIcons.strokeRoundedViewOff,
                                       color: Colors.grey),
                                 )),
-
                           ),
                           style: TextStyle(
                             fontSize: getSize(context, 2.5),
@@ -130,34 +131,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onTap: () {
                             setState(
-                                    () {}); // To trigger rebuild and change icon color on tap
+                                () {}); // To trigger rebuild and change icon color on tap
                           },
                         ),
                         const SizedBox(height: 20),
                         InkWell(
-                          onTap: () => Get.toNamed("/forgotPass"),
+                            onTap: () => Get.toNamed("/forgotPass"),
                             child: const Text("Forgot password?",
-                                style: TextStyle(fontFamily: "mu_bold"))
-                        ),
+                                style: TextStyle(fontFamily: "mu_bold"))),
                         const SizedBox(height: 30),
                         InkWell(
                           onTap: () async {
                             setState(() {
                               isLoading = true;
                             });
-                            if(await loginControl.login(username.text,password.text))
-                            {
-                                Get.offAllNamed("/dashboard");
-                            }
-                            else
-                            {
-                                Get.snackbar("Login Failed","Email or Password is invalid",
-                                backgroundColor: Colors.red,
-                                  colorText: Colors.white
-                            );
+                            if (await loginControl.login(
+                                username.text, password.text)) {
+                              Get.offAllNamed("/dashboard");
+                            } else {
+                              Get.snackbar("Login Failed",
+                                  "Email or Password is invalid",
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white);
                             }
                             setState(() {
-                            isLoading = false;
+                              isLoading = false;
                             });
                           },
                           child: Container(
@@ -191,7 +189,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -201,10 +198,11 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                decoration: const BoxDecoration(
-                    color: Colors.black45
+                decoration: const BoxDecoration(color: Colors.black45),
+                child: Image.asset(
+                  'assets/gifs/loading.gif',
+                  scale: 1.25,
                 ),
-                child: Image.asset('assets/gifs/loading.gif', scale: 1.25,),
               ),
             ),
         ],

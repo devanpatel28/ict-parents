@@ -1,15 +1,12 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'colors.dart';
 
 class Utils {
-
   showInternetAlert(
-      {required BuildContext context,
-      required VoidCallback onConfirm}) {
+      {required BuildContext context, required VoidCallback onConfirm}) {
     ArtSweetAlert.show(
       barrierDismissible: false,
       context: context,
@@ -18,7 +15,7 @@ class Utils {
         sizeSuccessIcon: 70,
         confirmButtonText: "Retry",
         confirmButtonColor: muColor,
-        onConfirm: (){
+        onConfirm: () {
           Get.back();
           onConfirm.call();
         },
@@ -32,8 +29,7 @@ class Utils {
   }
 
   showSomethingWrongAlert(
-      {required BuildContext context,
-        required VoidCallback onConfirm}) {
+      {required BuildContext context, required VoidCallback onConfirm}) {
     ArtSweetAlert.show(
       context: context,
       artDialogArgs: ArtDialogArgs(
@@ -41,7 +37,7 @@ class Utils {
         sizeSuccessIcon: 70,
         confirmButtonText: "Retry",
         confirmButtonColor: muColor,
-        onConfirm: (){
+        onConfirm: () {
           Get.back();
           onConfirm.call();
         },
@@ -54,12 +50,12 @@ class Utils {
     );
   }
 
-  showUploadSuccessAlert(){
+  showUploadSuccessAlert() {
     ArtSweetAlert.show(
       context: Get.context!,
       barrierDismissible: false,
       artDialogArgs: ArtDialogArgs(
-        dialogPadding: EdgeInsets.only(top: 30),
+        dialogPadding: const EdgeInsets.only(top: 30),
         type: ArtSweetAlertType.success,
         sizeSuccessIcon: 70,
         confirmButtonText: "",
@@ -77,12 +73,12 @@ class Utils {
     });
   }
 
-  showNoChangesUploadAlert(){
+  showNoChangesUploadAlert() {
     ArtSweetAlert.show(
       context: Get.context!,
       barrierDismissible: false,
       artDialogArgs: ArtDialogArgs(
-        dialogPadding: EdgeInsets.only(top: 30),
+        dialogPadding: const EdgeInsets.only(top: 30),
         type: ArtSweetAlertType.warning,
         sizeSuccessIcon: 70,
         confirmButtonText: "",
@@ -99,12 +95,12 @@ class Utils {
     });
   }
 
-  showUploadFailedAlert(){
+  showUploadFailedAlert() {
     ArtSweetAlert.show(
       context: Get.context!,
       barrierDismissible: false,
       artDialogArgs: ArtDialogArgs(
-        dialogPadding: EdgeInsets.only(top: 30),
+        dialogPadding: const EdgeInsets.only(top: 30),
         type: ArtSweetAlertType.danger,
         sizeSuccessIcon: 70,
         confirmButtonText: "",
@@ -121,4 +117,3 @@ class Utils {
     });
   }
 }
-

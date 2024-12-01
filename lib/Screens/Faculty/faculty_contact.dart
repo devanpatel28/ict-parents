@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Controllers/faculty_contact_controller.dart';
 import 'package:ict_mu_parents/Model/faculty_contact_model.dart';
 import 'package:ict_mu_parents/Screens/Loading/adaptive_loading_screen.dart';
 import 'package:ict_mu_parents/Widgets/adaptive_refresh_indicator.dart';
 import 'package:ict_mu_parents/Widgets/faculty_contact_card.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../Helper/colors.dart';
 import '../Exception/data_not_found.dart';
 

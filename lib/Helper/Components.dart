@@ -152,56 +152,6 @@ Widget blackTag(context, Color? color, String? line1, String? line2,
   );
 }
 
-Widget tapIcons(
-  context,
-  String name,
-  double nameSize,
-  IconData iconData,
-  double iconSize,
-  String route,
-  routeArg,
-) {
-  return InkWell(
-    onTap: () => Get.toNamed(route, arguments: routeArg),
-    child: Column(
-      children: [
-        Container(
-          height: 75,
-          width: 75,
-          decoration: BoxDecoration(
-            color: muGrey,
-            borderRadius: BorderRadius.circular(15), // rounded corners
-          ),
-          child: Center(
-            child: HugeIcon(
-              icon: iconData,
-              color: Colors.black,
-              size: iconSize,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: getHeight(context, 0.01),
-        ),
-        SizedBox(
-            height: getHeight(context, 0.05),
-            width: getWidth(context, 0.25),
-            child: Text(
-              name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontFamily: 'mu_reg',
-                  color: muColor,
-                  height: 1,
-                  fontSize: getSize(context, nameSize)),
-              // softWrap: true,
-              textAlign: TextAlign.center,
-            ))
-      ],
-    ),
-  );
-}
 
 radialIndicator(BuildContext context, double input) {
   return Stack(

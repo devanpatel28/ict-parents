@@ -7,10 +7,12 @@ import 'package:ict_mu_parents/Screens/Authentication/forgot_password.dart';
 import 'package:ict_mu_parents/Screens/Splash/main_splash.dart';
 import 'package:ict_mu_parents/Screens/Timetable/timetable.dart';
 import 'Bindings/change_password_binding.dart';
+import 'Bindings/exam_list_binding.dart';
 import 'Bindings/timetable_binding.dart';
 import 'Helper/colors.dart';
 import 'Screens/Attendance/attendance_show.dart';
 import 'Screens/Authentication/change_password.dart';
+import 'Screens/Examination/exam_list.dart';
 import 'Screens/Faculty/faculty_contact.dart';
 import 'Screens/Home/dashboard_home.dart';
 import 'Screens/Authentication/login.dart';
@@ -36,6 +38,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(cursorColor: muColor,selectionColor: muColor50,selectionHandleColor: muColor),
+        colorScheme: ColorScheme.light(primary: muColor,),
         fontFamily: "mu_reg",
         scaffoldBackgroundColor: backgroundColor,
         appBarTheme: AppBarTheme(
@@ -90,6 +94,11 @@ class MyApp extends StatelessWidget {
             transition: Transition.fadeIn,
             binding: TimetableBinding(),
             page: () => const TimetableScreen()),
+        GetPage(
+            name: "/examList",
+            transition: Transition.fadeIn,
+            binding: ExamListBinding(),
+            page: () => const ExamList()),
       ],
       initialRoute: "/splashscreen",
     );

@@ -1,5 +1,5 @@
 String host =
-    "https://d6bf-2409-40c1-3014-f0c6-a50e-deb2-1d74-4126.ngrok-free.app";
+    "https://b6a5-2409-40c1-303d-182c-3469-d56f-475e-75ca.ngrok-free.app";
 String serverPath = "/ict-server/api/index.php";
 
 String currentVersion = "1.0";
@@ -16,6 +16,8 @@ String attendanceByDateAPI = '$host$serverPath/Attendance/AttendanceByDate';
 
 String facultyContactAPI = '$host$serverPath/Parent/getFacultyContact';
 String timetableAPI = '$host$serverPath/Parent/getStudentTimetable';
+
+String examListAPI = '$host$serverPath/Exam/getExamList';
 
 String studentImageAPI(gr) {
   String api =

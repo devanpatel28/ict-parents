@@ -71,7 +71,7 @@ class FacultyContactCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const Divider(height: 20),
+              Divider(height: 20,color: muGrey2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

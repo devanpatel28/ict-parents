@@ -63,9 +63,10 @@ class TimetableCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const Divider(
+              Divider(
                 height: 15,
                 thickness: 1.5,
+                color: muGrey2,
               ),
               const SizedBox(
                 height: 5,

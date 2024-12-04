@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
+import 'package:ict_mu_parents/Widgets/dashboard_icon.dart';
 import '../../Helper/colors.dart';
 import '../../Model/user_data_model.dart';
 import '../../Network/API.dart';
@@ -81,30 +82,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   childAspectRatio: 0.85,
                   padding: const EdgeInsets.all(10),
                   children: [
-                    tapIcons(
-                        context,
-                        "Attendance",
-                        2,
-                        HugeIcons.strokeRoundedDocumentValidation,
-                        40,
-                        "/attendance",
-                        {'student_id': userData.studentDetails?.studentId}),
-                    tapIcons(
-                        context,
-                        "Faculty Contact",
-                        2,
-                        HugeIcons.strokeRoundedContact01,
-                        40,
-                        "/faculty_contact",
-                        {'student_id': userData.studentDetails?.studentId}),
-                    tapIcons(
-                        context,
-                        "Timetable",
-                        2,
-                        HugeIcons.strokeRoundedCalendar02,
-                        40,
-                        "/studentTimetable",
-                        {'student_id': userData.studentDetails?.studentId}),
+                    TapIcon(name: "Attendance", iconData: HugeIcons.strokeRoundedDocumentValidation, route: "/attendance",routeArg: {'student_id': userData.studentDetails?.studentId}),
+                    TapIcon(name: "Faculty Contact", iconData: HugeIcons.strokeRoundedContact01, route: "/faculty_contact",routeArg: {'student_id': userData.studentDetails?.studentId}),
+                    TapIcon(name: "Timetable", iconData: HugeIcons.strokeRoundedCalendar02, route: "/studentTimetable",routeArg: {'student_id': userData.studentDetails?.studentId}),
+                    TapIcon(name: "Examination", iconData: HugeIcons.strokeRoundedDocumentValidation, route: "/examList",routeArg: {'student_id': userData.studentDetails?.studentId}),
                   ],
                 ),
               ),

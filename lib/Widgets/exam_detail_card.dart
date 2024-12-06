@@ -4,7 +4,6 @@ import 'package:ict_mu_parents/Helper/Components.dart';
 import 'package:ict_mu_parents/Helper/colors.dart';
 import 'package:ict_mu_parents/Helper/size.dart';
 import 'package:intl/intl.dart';
-import 'package:get/get.dart';
 
 class ExamDetailCard extends StatelessWidget {
   final String subjectShortName;
@@ -92,7 +91,8 @@ class ExamDetailCard extends StatelessWidget {
                                   style: const TextStyle(
                                     fontSize: 17,
                                     overflow: TextOverflow.visible,
-                                  )))
+                                  ))
+                          )
                         ],
                       )
                     ],
@@ -114,7 +114,7 @@ class ExamDetailCard extends StatelessWidget {
               child: Center(
                 child: Text(
                   examType=="mid1"?"MID - 1":examType=="mid2"?"MID - 2":"FINAL",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ),

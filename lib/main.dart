@@ -3,12 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ict_mu_parents/Bindings/attendance_show_binding.dart';
 import 'package:ict_mu_parents/Bindings/faculty_contact_binding.dart';
+import 'package:ict_mu_parents/Bindings/holiday_list_binding.dart';
 import 'package:ict_mu_parents/Screens/Authentication/forgot_password.dart';
+import 'package:ict_mu_parents/Screens/Holiday/holiday_list.dart';
 import 'package:ict_mu_parents/Screens/Splash/main_splash.dart';
 import 'package:ict_mu_parents/Screens/Timetable/timetable.dart';
+import 'package:ict_mu_parents/Screens/ZoomLink/zoom_link.dart';
 import 'Bindings/change_password_binding.dart';
 import 'Bindings/exam_list_binding.dart';
 import 'Bindings/timetable_binding.dart';
+import 'Bindings/zoom_link_binding.dart';
 import 'Helper/colors.dart';
 import 'Screens/Attendance/attendance_show.dart';
 import 'Screens/Authentication/change_password.dart';
@@ -99,6 +103,16 @@ class MyApp extends StatelessWidget {
             transition: Transition.fadeIn,
             binding: ExamListBinding(),
             page: () => const ExamList()),
+        GetPage(
+            name: "/holidayList",
+            transition: Transition.fadeIn,
+            binding: HolidayListBinding(),
+            page: () => const HolidayList()),
+        GetPage(
+            name: "/meetingList",
+            transition: Transition.fadeIn,
+            binding: ZoomLinkBinding(),
+            page: () => const ZoomLink()),
       ],
       initialRoute: "/splashscreen",
     );

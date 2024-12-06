@@ -1,12 +1,17 @@
+import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
+import 'package:ict_mu_parents/Helper/size.dart';
+import 'package:ict_mu_parents/Model/holiday_list_model.dart';
 import 'package:ict_mu_parents/Widgets/dashboard_icon.dart';
 import '../../Helper/colors.dart';
 import '../../Model/user_data_model.dart';
 import '../../Network/API.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -18,10 +23,16 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final box = GetStorage();
   late UserData userData;
+  late HolidayListModel upcomingHoliday = HolidayListModel(
+    id: 0,
+    holidayName: "No upcoming holidays",
+    holidayDate: "",
+  );
 
   @override
   void initState() {
     super.initState();
+    fetchUpcomingHoliday();
     Map<String, dynamic> storedData = box.read('userdata');
     userData = UserData.fromJson(storedData);
   }
@@ -67,15 +78,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Container(
-                height: 400,
+                height: 300,
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
+                // color: Colors.red,
                 child: GridView.count(
-                  shrinkWrap:
-                      true, // Ensures the GridView takes only as much space as it needs
+                  shrinkWrap: true,
                   crossAxisCount: 3,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 10,
@@ -86,26 +93,61 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     TapIcon(name: "Faculty Contact", iconData: HugeIcons.strokeRoundedContact01, route: "/faculty_contact",routeArg: {'student_id': userData.studentDetails?.studentId}),
                     TapIcon(name: "Timetable", iconData: HugeIcons.strokeRoundedCalendar02, route: "/studentTimetable",routeArg: {'student_id': userData.studentDetails?.studentId}),
                     TapIcon(name: "Examination", iconData: HugeIcons.strokeRoundedDocumentValidation, route: "/examList",routeArg: {'student_id': userData.studentDetails?.studentId}),
+                    TapIcon(name: "Holidays", iconData: HugeIcons.strokeRoundedSun01, route: "/holidayList"),
+                    TapIcon(name: "Meeting", iconData: HugeIcons.strokeRoundedMeetingRoom, route: "/meetingList",routeArg: {'student_id': userData.studentDetails?.studentId}),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            blackTag(
-                context,
-                Dark1,
-                "Upcoming Event",
-                "Engineer's Day Celebration",
-                Image.asset(
-                  "assets/images/arrow_right.png",
-                  fit: BoxFit.cover,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: getWidth(context, 0.7),
+                decoration: BoxDecoration(
+                  color: muGrey,
+                  borderRadius: BorderRadius.horizontal(right: Radius.circular(borderRad*2))
                 ),
-                false,
-                "null",
-                null),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20,10,10,10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Upcoming Holiday : ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                      Text("${DateFormat('dd-MM-yyyy')
+                          .format(DateTime.parse(upcomingHoliday.holidayDate))} - ${upcomingHoliday.holidayName}",style: TextStyle(fontSize: 17,color: muColor)),
+                  ]
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+  Future<void> fetchUpcomingHoliday() async {
+    try {
+      final response = await http.get(
+        Uri.parse(upcomingHolidayAPI),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': validApiKey,
+        },
+      );
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        if (responseData.isNotEmpty) {
+          setState(() {
+            upcomingHoliday = HolidayListModel.fromJson(responseData);
+          });
+        }
+      } else {
+        throw Exception("Failed to fetch holidays. Status code: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error fetching holiday list: $e");
+    }
+  }
+
 }

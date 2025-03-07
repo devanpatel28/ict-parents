@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController password = TextEditingController(text: "DEVAN@114617");
 
   LoginController loginControl = Get.put(LoginController());
+
   @override
   void dispose() {
     // Clean up the focus nodes when the widget is disposed
@@ -63,8 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                           textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
-                            labelText: 'Faculty ID',
-                            hintText: 'Enter Faculty ID',
+                            labelText: 'Student GR No.',
+                            hintText: 'Enter Student GR No.',
                             hintStyle: TextStyle(
                               fontFamily: "mu_reg",
                               color: muGrey2,

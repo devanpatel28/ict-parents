@@ -2,8 +2,8 @@ import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:ict_mu_parents/Controllers/logout_controller.dart';
 import 'package:ict_mu_parents/Model/user_data_model.dart';
 import '../../Helper/Colors.dart';
 import '../../Helper/Components.dart';
@@ -12,18 +12,12 @@ import '../../Helper/size.dart';
 import '../../Network/API.dart';
 import '../../Widgets/detail_with_heading.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends GetView<LogoutController>
+{
   const ProfilePage({super.key});
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  UserData userData = Get.arguments;
   onLogout() {
     ArtSweetAlert.show(
-      context: context,
+      context: Get.context!,
       artDialogArgs: ArtDialogArgs(
         type: ArtSweetAlertType.question,
         sizeSuccessIcon: 70,
@@ -33,12 +27,6 @@ class _ProfilePageState extends State<ProfilePage> {
         cancelButtonColor: Colors.redAccent,
         cancelButtonText: "No",
         onConfirm: () async {
-          final box = GetStorage();
-          await CachedNetworkImage.evictFromCache(
-              studentImageAPI(userData.studentDetails!.studentId));
-          await box.write('loggedin', false);
-          await box.write('userdata', null);
-          Get.offNamed('/login');
         },
         title: "Are you sure to Logout?",
         dialogDecoration: BoxDecoration(
@@ -51,6 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    UserData userData = Get.arguments;
     return Scaffold(
         appBar: AppBar(
           title: const Text("Profile"),
@@ -70,10 +59,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         borderRadius: BorderRadius.circular(borderRad)),
                     child: Center(
                         child: Text(
-                      "Logout",
-                      style: TextStyle(
-                          color: backgroundColor, fontWeight: FontWeight.bold),
-                    ))),
+                          "Logout",
+                          style: TextStyle(
+                              color: backgroundColor, fontWeight: FontWeight.bold),
+                        ))),
               ),
             )
           ],
@@ -107,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         clipBehavior: Clip.hardEdge,
                         child: CachedNetworkImage(
                           imageUrl:
-                              studentImageAPI(userData.studentDetails!.grNo),
+                          studentImageAPI(userData.studentDetails!.grNo),
                           placeholder: (context, url) => HugeIcon(
                             icon: HugeIcons.strokeRoundedUser,
                             color: muColor,
@@ -128,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 DetailWithHeading(
                     headingName: "Student Name",
                     details:
-                        "${userData.studentDetails!.firstName} ${userData.studentDetails!.lastName}"),
+                    "${userData.studentDetails!.firstName} ${userData.studentDetails!.lastName}"),
                 const SizedBox(
                   height: 10,
                 ),
@@ -138,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: DetailWithHeading(
                           headingName: "Sem-Class-Batch",
                           details:
-                              "${userData.classDetails!.semester} - ${userData.classDetails!.className} - ${userData.classDetails!.batch!.toUpperCase()}"),
+                          "${userData.classDetails!.semester} - ${userData.classDetails!.className} - ${userData.classDetails!.batch!.toUpperCase()}"),
                     ),
                     const SizedBox(
                       width: 10,
@@ -147,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: DetailWithHeading(
                         headingName: "Academic Batch",
                         details:
-                            "${userData.studentDetails!.batchStartYear} - ${userData.studentDetails!.batchEndYear.toString().substring(2)}",
+                        "${userData.studentDetails!.batchStartYear} - ${userData.studentDetails!.batchEndYear.toString().substring(2)}",
                       ),
                     ),
                   ],
@@ -195,7 +184,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 DetailWithHeading(
                     headingName: "Parent Name",
                     details:
-                        "${userData.parentDetails!.parentName} ${userData.studentDetails!.lastName}"),
+                    "${userData.parentDetails!.parentName} ${userData.studentDetails!.lastName}"),
                 const SizedBox(
                   height: 10,
                 ),
@@ -231,9 +220,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         borderRadius: BorderRadius.circular(borderRad)),
                     child: Center(
                         child: Text(
-                      "Change Password",
-                      style: TextStyle(color: muColor, fontSize: 20),
-                    )),
+                          "Change Password",
+                          style: TextStyle(color: muColor, fontSize: 20),
+                        )),
                   ),
                 ),
                 const SizedBox(

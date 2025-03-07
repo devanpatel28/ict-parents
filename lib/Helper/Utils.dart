@@ -1,10 +1,37 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Preference/preference_manager.dart';
 import 'colors.dart';
 
 class Utils {
+
+  //Get FCM Token From Firebase
+  static Future<String?> getFCMToken() async {
+    try {
+      final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+      String? fcmToken;
+      fcmToken = await firebaseMessaging.getToken();
+
+      if (fcmToken != null) {
+        SharedPrefs().setFCMToken(fcmToken);
+      }
+      if (kDebugMode) {
+        print("FCM TOKEN $fcmToken");
+      }
+      return fcmToken;
+    } catch (e) {
+      if (kDebugMode) {
+        print("getFCMToken $e");
+      }
+      return null;
+    }
+  }
+
+
   showInternetAlert(
       {required BuildContext context, required VoidCallback onConfirm}) {
     ArtSweetAlert.show(

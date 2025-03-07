@@ -1,4 +1,4 @@
-String host = "https://33d2-2409-40c1-301f-a493-451-6e6a-bcde-a29.ngrok-free.app";
+String host = "https://trivially-active-bream.ngrok-free.app";
 String serverPath = "/ict-server/api/index.php";
 
 String currentVersion = "1.0";
@@ -9,6 +9,7 @@ String updatePasswordAPI = '$host$serverPath/Password/updatePassword';
 
 String validateVersionAPI = '$host$serverPath/AppVersion/check';
 String validateLoginAPI = '$host$serverPath/Parent/login';
+String validateLogoutAPI = '$host$serverPath/Parent/logout';
 
 String totalAttendanceAPI = '$host$serverPath/Attendance/TotalAttendance';
 String attendanceByDateAPI = '$host$serverPath/Attendance/AttendanceByDate';

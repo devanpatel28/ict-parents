@@ -89,12 +89,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   childAspectRatio: 0.85,
                   padding: const EdgeInsets.all(10),
                   children: [
-                    TapIcon(name: "Attendance", iconData: HugeIcons.strokeRoundedDocumentValidation, route: "/attendance",routeArg: {'student_id': userData.studentDetails?.studentId}),
-                    TapIcon(name: "Faculty Contact", iconData: HugeIcons.strokeRoundedContact01, route: "/faculty_contact",routeArg: {'student_id': userData.studentDetails?.studentId}),
-                    TapIcon(name: "Timetable", iconData: HugeIcons.strokeRoundedCalendar02, route: "/studentTimetable",routeArg: {'student_id': userData.studentDetails?.studentId}),
-                    TapIcon(name: "Examination", iconData: HugeIcons.strokeRoundedDocumentValidation, route: "/examList",routeArg: {'student_id': userData.studentDetails?.studentId}),
-                    TapIcon(name: "Holidays", iconData: HugeIcons.strokeRoundedSun01, route: "/holidayList"),
-                    TapIcon(name: "Meeting", iconData: HugeIcons.strokeRoundedMeetingRoom, route: "/meetingList",routeArg: {'student_id': userData.studentDetails?.studentId}),
+                    TapIcon(
+                        name: "Attendance",
+                        iconData: HugeIcons.strokeRoundedDocumentValidation,
+                        route: "/attendance",
+                        routeArg: {
+                          'student_id': userData.studentDetails?.studentId
+                        }),
+                    TapIcon(
+                        name: "Faculty Contact",
+                        iconData: HugeIcons.strokeRoundedContact01,
+                        route: "/faculty_contact",
+                        routeArg: {
+                          'student_id': userData.studentDetails?.studentId
+                        }),
+                    TapIcon(
+                        name: "Timetable",
+                        iconData: HugeIcons.strokeRoundedCalendar02,
+                        route: "/studentTimetable",
+                        routeArg: {
+                          'student_id': userData.studentDetails?.studentId
+                        }),
+                    TapIcon(
+                        name: "Examination",
+                        iconData: HugeIcons.strokeRoundedDocumentValidation,
+                        route: "/examList",
+                        routeArg: {
+                          'student_id': userData.studentDetails?.studentId
+                        }),
+                    TapIcon(
+                        name: "Holidays",
+                        iconData: HugeIcons.strokeRoundedSun01,
+                        route: "/holidayList"),
+                    TapIcon(
+                        name: "Meeting",
+                        iconData: HugeIcons.strokeRoundedMeetingRoom,
+                        route: "/meetingList",
+                        routeArg: {
+                          'student_id': userData.studentDetails?.studentId
+                        }),
                   ],
                 ),
               ),
@@ -105,19 +138,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Container(
                 width: getWidth(context, 0.7),
                 decoration: BoxDecoration(
-                  color: muGrey,
-                  borderRadius: BorderRadius.horizontal(right: Radius.circular(borderRad*2))
-                ),
+                    color: muGrey,
+                    borderRadius: BorderRadius.horizontal(
+                        right: Radius.circular(borderRad * 2))),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20,10,10,10),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Upcoming Holiday : ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                      Text("${DateFormat('dd-MM-yyyy')
-                          .format(DateTime.parse(upcomingHoliday.holidayDate))} - ${upcomingHoliday.holidayName}",style: TextStyle(fontSize: 17,color: muColor)),
-                  ]
-                  ),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Upcoming Holiday : ",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        if (upcomingHoliday.holidayDate.isNotEmpty)
+                          Text(
+                              "${DateFormat('dd-MM-yyyy').format(DateTime.parse(upcomingHoliday.holidayDate))} - ${upcomingHoliday.holidayName}",
+                              style: TextStyle(fontSize: 17, color: muColor)),
+                      ]),
                 ),
               ),
             ),
@@ -126,6 +164,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+
   Future<void> fetchUpcomingHoliday() async {
     try {
       final response = await http.get(
@@ -143,11 +182,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           });
         }
       } else {
-        throw Exception("Failed to fetch holidays. Status code: ${response.statusCode}");
+        throw Exception(
+            "Failed to fetch holidays. Status code: ${response.statusCode}");
       }
     } catch (e) {
       print("Error fetching holiday list: $e");
     }
   }
-
 }

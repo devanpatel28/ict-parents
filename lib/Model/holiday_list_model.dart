@@ -12,8 +12,8 @@ class HolidayListModel {
   factory HolidayListModel.fromJson(Map<String, dynamic> json) {
     return HolidayListModel(
         id :json['id'],
-        holidayName: json['holiday_name'],
-        holidayDate :json['holiday_date'],
+        holidayName: json['holiday_name'] ?? "",
+        holidayDate :json['holiday_date'] ?? "",
     );
   }
 

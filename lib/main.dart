@@ -4,6 +4,9 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ict_mu_parents/Bindings/attendance_show_binding.dart';
 import 'package:ict_mu_parents/Bindings/faculty_contact_binding.dart';
 import 'package:ict_mu_parents/Bindings/holiday_list_binding.dart';
+import 'package:ict_mu_parents/Bindings/profile_binding.dart';
+import 'package:ict_mu_parents/Firebase/firebase_messaging_service.dart';
+import 'package:ict_mu_parents/Preference/preference_manager.dart';
 import 'package:ict_mu_parents/Screens/Authentication/forgot_password.dart';
 import 'package:ict_mu_parents/Screens/Holiday/holiday_list.dart';
 import 'package:ict_mu_parents/Screens/Splash/main_splash.dart';
@@ -25,6 +28,12 @@ import 'Screens/Profile/profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //For Local Storage
+  await SharedPrefs().init();
+
+  //Firebase notification config
+  await configureFirebasePushNotifications();
 
   // Lock orientation to portrait only
   await SystemChrome.setPreferredOrientations([
@@ -87,6 +96,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/profile",
             transition: Transition.fadeIn,
+            binding: ProfileBinding(),
             page: () => const ProfilePage()),
         GetPage(
             name: "/changePassword",

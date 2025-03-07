@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Controllers/zoom_link_controller.dart';
 import 'package:ict_mu_parents/Model/zoom_link_model.dart';
 import 'package:ict_mu_parents/Widgets/meeting_card.dart';

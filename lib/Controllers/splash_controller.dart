@@ -1,12 +1,15 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../Firebase/firebase_messaging_service.dart';
 import '../Helper/Utils.dart';
 import '../Helper/colors.dart';
 import '../Network/API.dart';
@@ -21,6 +24,8 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     checkVersion();
+    //Local Notifications
+    handlePendingMessages();
   }
 
   _navigateAfterSplash() async {
@@ -30,6 +35,16 @@ class SplashController extends GetxController {
       Get.offAllNamed("/dashboard");
     } else {
       Get.offAllNamed("/login");
+    }
+  }
+// get default permission to handle notification for android
+  getPermissionForNotification() {
+    if (Platform.isAndroid) {
+      Permission.notification.isDenied.then((value) {
+        if (value) {
+          Permission.notification.request();
+        }
+      });
     }
   }
 

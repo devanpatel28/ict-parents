@@ -35,6 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     fetchUpcomingHoliday();
     Map<String, dynamic> storedData = box.read('userdata');
     userData = UserData.fromJson(storedData);
+    print(userData.studentDetails?.batchId);
   }
 
   @override
@@ -59,12 +60,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 "Sem: ${userData.classDetails?.semester}  Class: ${userData.classDetails?.className} - ${userData.classDetails?.batch?.toUpperCase()}",
                 CachedNetworkImage(
                   imageUrl: studentImageAPI(userData.studentDetails!.grNo),
-                  placeholder: (context, url) => const HugeIcon(
+                  placeholder: (context, url) =>  HugeIcon(
                     icon: HugeIcons.strokeRoundedUser,
                     size: 30,
                     color: Colors.black,
                   ),
-                  errorWidget: (context, url, error) => const HugeIcon(
+                  errorWidget: (context, url, error) =>  HugeIcon(
                     icon: HugeIcons.strokeRoundedUser,
                     size: 30,
                     color: Colors.black,
@@ -78,7 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Container(
-                height: 300,
+                height: 450,
                 width: double.infinity,
                 // color: Colors.red,
                 child: GridView.count(
@@ -128,6 +129,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         routeArg: {
                           'student_id': userData.studentDetails?.studentId
                         }),
+                    TapIcon(
+                        name: "Placements",
+                        iconData: HugeIcons.strokeRoundedGraduationScroll,
+                        route: "/placements",
+                        routeArg: {
+                          'student_id': userData.studentDetails?.studentId,
+                          'batch_id': userData.studentDetails?.batchId
+                        }),
+                    TapIcon(
+                        name: "Leave",
+                        iconData: HugeIcons.strokeRoundedMessageUser01,
+                        route: "/leave",
+                        routeArg: {
+                          'student_id': userData.studentDetails?.studentId
+                        }),
+                    TapIcon(
+                      name: "Events",
+                      iconData: HugeIcons.strokeRoundedRanking,
+                      route: "/events",
+                    ),
                   ],
                 ),
               ),

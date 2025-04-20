@@ -2,7 +2,7 @@ String host = "https://trivially-active-bream.ngrok-free.app";
 String serverPath = "/ict-server/api/index.php";
 
 String currentVersion = "1.0";
-String validApiKey = "your-secure-api-key";
+String validApiKey = "ictmu";
 String updateURL = 'https://devanpatel28.blogspot.com/';
 
 String updatePasswordAPI = '$host$serverPath/Password/updatePassword';
@@ -23,6 +23,17 @@ String holidayListAPI = '$host$serverPath/Holiday/getAllHolidays';
 String upcomingHolidayAPI = '$host$serverPath/Holiday/getNextUpcomingHoliday';
 
 String zoomLinkListAPI = '$host$serverPath/ZoomLink/getUpcomingLinks';
+
+String recentlyPlacedAPI = '$host$serverPath/Placement/recentlyPlaced';
+String companyListAPI = '$host$serverPath/Placement/companyList';
+String campusDriveListAPI = '$host$serverPath/Placement/campusDriveByStudentList';
+String campusDriveStudentRoundsAPI = '$host$serverPath/Placement/campusDriveStudentRoundList';
+
+String leaveHistoryAPI = '$host$serverPath/Leave/getLeaveHistory';
+
+String eventListAPI = '$host$serverPath/Event/list';
+String upcomingEventAPI = '$host$serverPath/Event/getUpcomingEvent';
+
 
 String studentImageAPI(gr) {
   String api =

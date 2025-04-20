@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontFamily: "mu_reg",
                               color: muGrey2,
                             ),
-                            prefixIcon: const HugeIcon(
+                            prefixIcon: HugeIcon(
                                 icon: HugeIcons.strokeRoundedUserAccount,
                                 color: Colors.grey),
                             focusedBorder: OutlineInputBorder(

@@ -67,4 +67,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'mu-ict.appspot.com',
     iosBundleId: 'com.ictmu.ictMuParents',
   );
+
 }

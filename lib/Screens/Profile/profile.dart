@@ -15,7 +15,7 @@ import '../../Widgets/detail_with_heading.dart';
 class ProfilePage extends GetView<LogoutController>
 {
   const ProfilePage({super.key});
-  onLogout() {
+  onLogout(username) {
     ArtSweetAlert.show(
       context: Get.context!,
       artDialogArgs: ArtDialogArgs(
@@ -27,6 +27,7 @@ class ProfilePage extends GetView<LogoutController>
         cancelButtonColor: Colors.redAccent,
         cancelButtonText: "No",
         onConfirm: () async {
+          controller.logout(username);
         },
         title: "Are you sure to Logout?",
         dialogDecoration: BoxDecoration(
@@ -50,7 +51,7 @@ class ProfilePage extends GetView<LogoutController>
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: InkWell(
-                onTap: () => onLogout(),
+                onTap: () => onLogout(userData.studentDetails?.grNo ??""),
                 child: Container(
                     width: 70,
                     height: 35,

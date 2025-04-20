@@ -109,11 +109,11 @@ class ExamDetailCard extends StatelessWidget {
               height: 30,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRad),bottomRight: Radius.circular(borderRad)),
-                  color: examType.contains('mid')?muColor50:Colors.amber
+                  color: examType.contains('mid')?muColor50:examType.contains('viva')?Colors.greenAccent:Colors.amber
               ),
               child: Center(
                 child: Text(
-                  examType=="mid1"?"MID - 1":examType=="mid2"?"MID - 2":"FINAL",
+                  examType=="mid1"?"MID - 1":examType=="mid2"?"MID - 2":examType=="viva"?"VIVA":"FINAL",
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

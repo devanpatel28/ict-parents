@@ -24,13 +24,13 @@ class LogoutController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        final responseData = json.decode(response.body);
+        // final responseData = json.decode(response.body);
 
-        UserData userData = UserData.fromJson(responseData);
+        // UserData userData = UserData.fromJson(responseData);
 
         final box = GetStorage();
-        await CachedNetworkImage.evictFromCache(
-            studentImageAPI(userData.studentDetails!.studentId));
+        // await CachedNetworkImage.evictFromCache(
+        //     studentImageAPI(userData.studentDetails!.studentId));
         await box.write('loggedin', false);
         await box.write('userdata', null);
         Get.offNamed('/login');

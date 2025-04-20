@@ -90,7 +90,7 @@ class FacultyContactCard extends StatelessWidget {
                           _showErrorSnackbar("Error", "Mobile number is empty");
                         }
                       },
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           HugeIcon(
@@ -98,7 +98,7 @@ class FacultyContactCard extends StatelessWidget {
                             color: Colors.green,
                             size: 20,
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.only(left: 5),
                             child: Text(
                               "WhatsApp",
@@ -124,7 +124,7 @@ class FacultyContactCard extends StatelessWidget {
                           _showErrorSnackbar("Error", "Could not launch dialer");
                         }
                       },
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           HugeIcon(
@@ -132,7 +132,7 @@ class FacultyContactCard extends StatelessWidget {
                             color:Colors.blue,
                             size: 20,
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.only(left: 5),
                             child: Text(
                               "Call",

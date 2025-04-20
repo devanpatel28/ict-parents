@@ -46,7 +46,14 @@ configureFirebasePushNotifications() async {
     //   print('User declined or has not accepted permission');
     // }
 
-    FirebaseMessaging.onMessage.listen((message) {
+    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+
+    FirebaseMessaging.onMessage.listen((message) async {
       final payload = message.remoteData;
       if (payload != null) {
         handleFirebaseNotificationDisplay(payload);

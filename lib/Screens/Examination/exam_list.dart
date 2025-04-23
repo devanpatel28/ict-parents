@@ -15,7 +15,7 @@ class ExamList extends GetView<ExamListController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Examination"),
+        title: const Text("Examination and Results"),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_rounded, color: backgroundColor),
@@ -42,7 +42,12 @@ class ExamList extends GetView<ExamListController> {
                     subjectShortName: exam.subjectShortname,
                     subjectName: exam.subjectName,
                     examDate: exam.examDate,
-                    examType: exam.examType),
+                    examType: exam.examType,
+                    examResultStatus: exam.examResultStatus,
+                    totalMarks: exam.totalMarks,
+                    obtainMarks: exam.obtainMarks,
+                    grade: exam.grade
+                ),
               );
             },
           )

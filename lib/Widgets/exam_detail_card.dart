@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:ict_mu_parents/Helper/Components.dart';
@@ -10,6 +12,10 @@ class ExamDetailCard extends StatelessWidget {
   final String subjectName;
   final String examType;
   final String examDate;
+  final int examResultStatus;
+  final int totalMarks;
+  final double obtainMarks;
+  final String grade;
 
   const ExamDetailCard({
     super.key,
@@ -17,6 +23,10 @@ class ExamDetailCard extends StatelessWidget {
     required this.subjectName,
     required this.examType,
     required this.examDate,
+    required this.examResultStatus,
+    required this.totalMarks,
+    required this.obtainMarks,
+    required this.grade,
   });
 
   @override
@@ -94,7 +104,44 @@ class ExamDetailCard extends StatelessWidget {
                                   ))
                           )
                         ],
-                      )
+                      ),
+                      if(examResultStatus==1)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0,8,0,8),
+                              child: Container(height: 1,width: getWidth(context, 0.7),color: muColor,),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(borderRad)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    HugeIcon(
+                                        icon: HugeIcons.strokeRoundedDocumentValidation,
+                                        color: muColor),
+                                    const SizedBox(width: 5),
+                                    SizedBox(
+                                        width: getWidth(context, 0.60),
+                                        child: Text("$totalMarks / $obtainMarks - ($grade)",
+                                            style: const TextStyle(
+                                              fontSize: 17,
+                                              overflow: TextOverflow.visible,
+                                            ))
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
                     ],
                   )
                 ],

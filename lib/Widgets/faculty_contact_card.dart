@@ -117,12 +117,8 @@ class FacultyContactCard extends StatelessWidget {
                     ),
                     child: TextButton(
                       onPressed: () async {
-                        Uri telUrl = Uri.parse("tel:$mobileNo");
-                        if (await canLaunchUrl(telUrl)) {
+                        Uri telUrl = Uri.parse("tel:+91$mobileNo");
                           await launchUrl(telUrl);
-                        } else {
-                          _showErrorSnackbar("Error", "Could not launch dialer");
-                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

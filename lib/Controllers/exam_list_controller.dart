@@ -55,8 +55,9 @@ class ExamListController extends GetxController {
         );
       }
     } catch (e) {
+      print(e);
       Get.snackbar(
-        "Error","Failed to get exam data",
+        "Error","Failed to get exam  $e",
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

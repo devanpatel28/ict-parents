@@ -109,7 +109,7 @@ class MeetingCard extends StatelessWidget {
                                     color: muColor),
                                 const SizedBox(width: 5),
                                 Text(
-                                  DateFormat("h:mm a").format(DateTime.parse(meetingDate)), // Fix the formatting here
+                                  DateFormat('hh:mm a').format(DateFormat('hh:mm:ss').parse(meetingTime)),
                                   style: const TextStyle(
                                     fontSize: 17,
                                     overflow: TextOverflow.visible,
